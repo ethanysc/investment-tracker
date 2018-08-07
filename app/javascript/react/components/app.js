@@ -1,7 +1,14 @@
 import React from 'react'
+import { Route, IndexRoute, Router, browserHistory } from 'react-router';
 
 export const App = (props) => {
-  return (<h1>Make It So React</h1>)
+  return (
+    <Router history={browserHistory} >
+      <Route path='/' >
+        <IndexRoute component={} />
+      </Route>
+    </Router>
+  )
 }
 
 export default App
