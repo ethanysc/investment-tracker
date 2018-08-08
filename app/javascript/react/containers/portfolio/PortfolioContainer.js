@@ -1,10 +1,9 @@
 import React from 'react'
 
-class PortfolioIndexContainer extends React.Component {
+class PortfolioContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {}
-
     this.timeOfDay = this.timeOfDay.bind(this)
   }
 
@@ -36,4 +35,4 @@ class PortfolioIndexContainer extends React.Component {
   }
 }
 
-export default PortfolioIndexContainer
+export default PortfolioContainer
