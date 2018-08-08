@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :portfolios, only: [:index]
   resources :stocks, only: [:index, :show]
 
-  resources :api do
-    resources :v1 do
+  namespace :api do
+    namespace :v1 do
       resources :stocks, only: [:index, :show]
     end
   end
