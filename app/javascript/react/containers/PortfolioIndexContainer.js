@@ -9,7 +9,7 @@ class PortfolioIndexContainer extends React.Component {
   }
 
   timeOfDay(){
-    let currentTime = new Date()
+    let currentTime = new Date().getHours()
     if (currentTime < 12){
       return 'Good Morning, '
     }
@@ -25,6 +25,12 @@ class PortfolioIndexContainer extends React.Component {
     return(
       <div className='porfolio-index-wrapper'>
         <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
+        <div className='distribution-chart'>Distribution Chart</div>
+        <div className='investment-line-graph'>Investment Line Graph</div>
+        <div className='callout'>Apple</div>
+        <div className='callout'>Google</div>
+        <div className='callout'>Facebook</div>
+        <div className='callout'>Microsoft</div>
       </div>
     )
   }
