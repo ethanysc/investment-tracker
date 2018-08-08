@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root 'portfolios#index'
   devise_for :users
-
+  
+  root 'portfolios#index'
   resources :portfolios, only: [:index]
 end
