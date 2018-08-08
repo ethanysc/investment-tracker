@@ -11,8 +11,8 @@ const StocksIndexTile = (props) => {
       <div>Close: ${props.stock.close}</div>
       <div>High: ${props.stock.high}</div>
       <div>Low: ${props.stock.low}</div>
-      <div>Price: ${props.stock.lastestPrice}</div>
-      <div>Volume: {props.stock.lastestVolume}</div>
+      <div>Price: ${props.stock.latestPrice}</div>
+      <div>Volume: {props.stock.latestVolume}</div>
       <div>Change: {props.stock.change}</div>
       <div>Change %: {props.stock.changePercent}%</div>
     </li>
