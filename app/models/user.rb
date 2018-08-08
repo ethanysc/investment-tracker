@@ -11,8 +11,6 @@ class User < ApplicationRecord
   has_many :stock_ownerships
   has_many :stocks, through: :stock_ownerships
 
-  private
-
   attr_writer :login
 
   def login
@@ -27,8 +25,8 @@ class User < ApplicationRecord
       where(conditions).first
     end
   end
-
-  def current_user.admin?
-    current_user.admin
-  end
+  #
+  # def current_user.admin?
+  #   current_user.admin
+  # end
 end
