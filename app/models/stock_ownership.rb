@@ -1,8 +1,8 @@
 class StockOwnership < ApplicationRecord
-  validates :price_bought, presence: true, format: { with: /\A\d+(?:\.\d{2})?\z/ }
+  validates :price_bought, presence: true
   validates :amount, presence: true
-  validates :high_range, presence: true, format: { with: /\A\d+(?:\.\d{2})?\z/ }
-  validates :low_range, presence: true, format: { with: /\A\d+(?:\.\d{2})?\z/ }
+  validates :high_range, presence: true
+  validates :low_range, presence: true
 
   belongs_to :user
   belongs_to :stock

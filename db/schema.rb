@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(version: 2018_08_08_160105) do
   enable_extension "plpgsql"
 
   create_table "stock_ownerships", force: :cascade do |t|
-    t.float "price_bought", null: false
+    t.decimal "price_bought", precision: 7, scale: 2, null: false
     t.integer "amount", null: false
-    t.float "high_range"
-    t.float "low_range"
+    t.decimal "high_range", precision: 7, scale: 2
+    t.decimal "low_range", precision: 7, scale: 2
     t.bigint "user_id", null: false
     t.bigint "stock_id", null: false
     t.datetime "created_at", null: false
@@ -33,13 +33,13 @@ ActiveRecord::Schema.define(version: 2018_08_08_160105) do
     t.string "company_name", null: false
     t.string "primary_exchange", null: false
     t.string "sector", null: false
-    t.float "open", null: false
-    t.float "close", null: false
-    t.float "high", null: false
-    t.float "low", null: false
-    t.float "price", null: false
-    t.float "change", null: false
-    t.float "change_percent", null: false
+    t.decimal "open", precision: 7, scale: 2, null: false
+    t.decimal "close", precision: 7, scale: 2, null: false
+    t.decimal "high", precision: 7, scale: 2, null: false
+    t.decimal "low", precision: 7, scale: 2, null: false
+    t.decimal "price", precision: 7, scale: 2, null: false
+    t.decimal "change", precision: 4, scale: 2, null: false
+    t.decimal "change_percent", precision: 4, scale: 4, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 2018_08_08_160105) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.boolean "admin", default: false
-    t.float "balance"
-    t.float "monthly_contribution"
+    t.decimal "balance", precision: 7, scale: 2
+    t.decimal "monthly_contribution", precision: 7, scale: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
