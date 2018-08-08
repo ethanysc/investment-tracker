@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_024408) do
+ActiveRecord::Schema.define(version: 2018_08_08_160105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "stock_ownerships", force: :cascade do |t|
+    t.float "price_bought", null: false
+    t.integer "amount", null: false
+    t.float "high_range"
+    t.float "low_range"
+    t.bigint "user_id", null: false
+    t.bigint "stock_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_stock_ownerships_on_stock_id"
+    t.index ["user_id"], name: "index_stock_ownerships_on_user_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.string "symbol", null: false
+    t.string "company_name", null: false
+    t.string "primary_exchange", null: false
+    t.string "sector", null: false
+    t.float "open", null: false
+    t.float "close", null: false
+    t.float "high", null: false
+    t.float "low", null: false
+    t.float "price", null: false
+    t.float "change", null: false
+    t.float "change_percent", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

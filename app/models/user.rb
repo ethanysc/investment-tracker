@@ -8,6 +8,11 @@ class User < ApplicationRecord
   # validates :balance, format: { with: /\A\d+(?:\.\d{2})?\z/ }
   # validates :monthly_contribution, numericality: { greate_than: 0 }
 
+  has_many :stock_ownerships
+  has_many :stocks, through: :stock_ownerships
+
+  private
+
   attr_writer :login
 
   def login
@@ -23,7 +28,7 @@ class User < ApplicationRecord
     end
   end
 
-  # def current_user.admin?
-  #   current_user.admin
-  # end
+  def current_user.admin?
+    current_user.admin
+  end
 end
