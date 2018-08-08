@@ -5,12 +5,27 @@ feature 'user signs in', %Q{
   I want to sign in
   So that I can regain access to my account
 } do
-  scenario 'specify valid credentials' do
+
+  scenario 'specify valid username and password credentials' do
     user = FactoryBot.create(:user)
 
     visit new_user_session_path
 
-    fill_in 'Email', with: user.email
+    fill_in 'Username or E-mail', with: user.username
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
+    expect(page).to have_content('Signed in successfully')
+    expect(page).to have_content('Sign Out')
+  end
+
+  scenario 'specify valid email and password credentials' do
+    user = FactoryBot.create(:user)
+
+    visit new_user_session_path
+
+    fill_in 'Username or E-mail', with: user.email
     fill_in 'Password', with: user.password
 
     click_button 'Log in'
@@ -23,7 +38,7 @@ feature 'user signs in', %Q{
     visit new_user_session_path
 
     click_button 'Log in'
-    expect(page).to have_content('Invalid Email or password')
+    expect(page).to have_content('Invalid username or e-mail or password')
     expect(page).to_not have_content('Sign Out')
   end
 end
