@@ -20,4 +20,8 @@ class User < ApplicationRecord
       where(conditions).first
     end
   end
+
+  # def current_user.admin?
+  #   current_user.admin
+  # end
 end
