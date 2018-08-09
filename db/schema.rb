@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_024408) do
+ActiveRecord::Schema.define(version: 2018_08_08_160105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "stock_ownerships", force: :cascade do |t|
+    t.decimal "price_bought", precision: 7, scale: 2, null: false
+    t.integer "amount", null: false
+    t.decimal "high_range", precision: 7, scale: 2
+    t.decimal "low_range", precision: 7, scale: 2
+    t.bigint "user_id", null: false
+    t.bigint "stock_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_stock_ownerships_on_stock_id"
+    t.index ["user_id"], name: "index_stock_ownerships_on_user_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.string "symbol", null: false
+    t.string "company_name", null: false
+    t.string "primary_exchange", null: false
+    t.string "sector", null: false
+    t.decimal "open", precision: 7, scale: 2, null: false
+    t.decimal "close", precision: 7, scale: 2, null: false
+    t.decimal "high", precision: 7, scale: 2, null: false
+    t.decimal "low", precision: 7, scale: 2, null: false
+    t.decimal "price", precision: 7, scale: 2, null: false
+    t.decimal "change", precision: 4, scale: 2, null: false
+    t.decimal "change_percent", precision: 4, scale: 4, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,8 +59,8 @@ ActiveRecord::Schema.define(version: 2018_08_08_024408) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.boolean "admin", default: false
-    t.float "balance"
-    t.float "monthly_contribution"
+    t.decimal "balance", precision: 7, scale: 2
+    t.decimal "monthly_contribution", precision: 7, scale: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
