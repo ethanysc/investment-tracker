@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'portfolios#index'
-  resources :portfolios, only: [:index]
+  root 'stocks#index'
+  resources :all_stocks, only: [:index]
   resources :stocks, only: [:index, :show]
 
   namespace :api do
