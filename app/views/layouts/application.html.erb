@@ -4,10 +4,11 @@
   <title>InvestmentTracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag 'application', media: 'all' %>
-
+  
     <%= javascript_include_tag "vendor/modernizr" %>
 
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 
@@ -22,7 +23,7 @@
       <ul class="left">
         <li><%= link_to 'About' %></li>
         <li><%= link_to 'My Portfolio' %></li>
-        <li><%= link_to 'Stocks' %></li>
+        <li><%= link_to 'Stocks', stocks_path %></li>
         <li><%= link_to 'Cryptocurrencies' %></li>
         <li><%= link_to 'News' %></li>
         <li><%= link_to 'Tutorials' %></li>

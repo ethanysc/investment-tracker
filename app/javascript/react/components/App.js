@@ -1,13 +1,15 @@
 import React from 'react'
 import { Route, IndexRoute, Router, browserHistory } from 'react-router'
 
-import PortfolioIndexContainer from '../containers/PortfolioIndexContainer'
+import PortfolioContainer from '../containers/portfolio/PortfolioContainer'
+import StocksIndexContainer from '../containers/stocks/StocksIndexContainer'
 
 export const App = (props) => {
   return (
     <Router history={browserHistory} >
       <Route path='/' >
-        <IndexRoute component={PortfolioIndexContainer}/>
+        <IndexRoute component={PortfolioContainer}/>
+        <Route path='/stocks' component={StocksIndexContainer} />
       </Route>
     </Router>
   )
