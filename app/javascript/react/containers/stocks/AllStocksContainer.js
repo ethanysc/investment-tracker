@@ -8,7 +8,8 @@ class AllStocksContainer extends React.Component {
     super(props)
     this.state = {
       stocks: [],
-      newStock: null
+      newStock: null,
+      errors: []
     }
     this.fetchSectorStocks = this.fetchSectorStocks.bind(this)
     this.postStock = this.postStock.bind(this)
@@ -71,25 +72,30 @@ class AllStocksContainer extends React.Component {
     }
     fetch(`/api/v1/stocks.json`, {
       credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(formatPayload)
     })
       .then(response => {
         if(response.ok){
           return response
-        } else {
+        }
+        else {
           let errorMessage = `${response.status} (${response.statusText})`,
               error = new Error(errorMessage)
+          if(response.status == 401){
+            alert("You must be signed in to leave reviews!!!")
+          }
           throw(error)
         }
       })
       .then(response => response.json())
       .then(body => {
-        debugger
-        browserHistory.push(`/stocks/${body.newStock.id}`)
+        if (body.newStock){
+          browserHistory.push(`/stocks/${body.newStock.id}`)
+        }
       })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
   render(){
@@ -120,6 +126,7 @@ class AllStocksContainer extends React.Component {
     return(
       <div className='stock-index wrapper'>
         <h1 className='stock-index header'>List of Stocks</h1>
+
           <button className="btn-edge" onClick={handleCategories} name='Financials'>Financials</button>
           <button className="btn-middle" onClick={handleCategories} name='Technology'>Technology</button>
           <button className="btn-middle" onClick={handleCategories} name='Health%20Care'>Healthcare</button>

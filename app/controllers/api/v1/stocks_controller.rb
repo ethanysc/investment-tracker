@@ -1,6 +1,15 @@
 class Api::V1::StocksController < ApiController
   def index
-    render json: Stock.all
+    if(current_user)
+      current_user.stocks.each do |stock|
+        fetchObj = FetchStock.new(stock.symbol)
+        binding.pry
+        stock = fetchObj.get_stock
+      end
+      render json: current_user.stocks
+    else
+      render json: current_user
+    end
   end
 
   def show
@@ -13,7 +22,7 @@ class Api::V1::StocksController < ApiController
       StockOwnership.create(user: current_user, stock: new_stock)
       render json: { newStock: new_stock }
     else
-      render json: {errors: new_stock.errors }
+      render json: { errors: "Selected stock is already in your portfolio" }, status: 422
     end
   end
 

@@ -4,8 +4,34 @@ class StocksIndexContainer extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = {}
+    this.state = {
+      myStocks: [],
+      errors: []
+    }
     this.timeOfDay = this.timeOfDay.bind(this)
+  }
+
+  componentDidMount(){
+    fetch('/api/v1/stocks.json', {credentials: 'same-origin'})
+    .then(response => {
+      if (response.ok) {
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      if (body){
+        this.setState({ myStocks: body })
+      }
+      else {
+        this.setState({ errors: this.state.errors.concat(body) })
+      }
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
   timeOfDay(){
@@ -22,15 +48,25 @@ class StocksIndexContainer extends React.Component {
   }
 
   render(){
+    let myStocks = ''
+    if (this.state.myStocks.length > 0) {
+      myStocks = this.state.myStocks.map((stock) => {
+        return(
+          <StocksIndexTile
+            key={stock.symbol}
+            stock={stock}
+            handleClick={handleAdd}
+          />
+        )
+      })
+    }
     return(
       <div className='porfolio-index-wrapper'>
         <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
         <div className='distribution-chart'>Distribution Chart</div>
         <div className='investment-line-graph'>Investment Line Graph</div>
-        <div className='callout'>Apple</div>
-        <div className='callout'>Google</div>
-        <div className='callout'>Facebook</div>
-        <div className='callout'>Microsoft</div>
+        <div className='stocks-list'>List of Stock Investments</div>
+        {myStocks}
       </div>
     )
   }

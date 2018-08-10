@@ -10,14 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_160105) do
+ActiveRecord::Schema.define(version: 2018_08_10_152523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "sectors", force: :cascade do |t|
+    t.string "sector", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stock_ownerships", force: :cascade do |t|
-    t.decimal "price_bought", precision: 7, scale: 2, null: false
-    t.integer "amount", null: false
+    t.decimal "price", precision: 7, scale: 2, null: false
+    t.integer "share", null: false
     t.decimal "high_range", precision: 7, scale: 2
     t.decimal "low_range", precision: 7, scale: 2
     t.bigint "user_id", null: false
@@ -30,18 +36,11 @@ ActiveRecord::Schema.define(version: 2018_08_08_160105) do
 
   create_table "stocks", force: :cascade do |t|
     t.string "symbol", null: false
-    t.string "company_name", null: false
-    t.string "primary_exchange", null: false
-    t.string "sector", null: false
-    t.decimal "open", precision: 7, scale: 2, null: false
-    t.decimal "close", precision: 7, scale: 2, null: false
-    t.decimal "high", precision: 7, scale: 2, null: false
-    t.decimal "low", precision: 7, scale: 2, null: false
-    t.decimal "price", precision: 7, scale: 2, null: false
-    t.decimal "change", precision: 4, scale: 2, null: false
-    t.decimal "change_percent", precision: 4, scale: 4, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sector_id"
+    t.index ["sector_id"], name: "index_stocks_on_sector_id"
+    t.index ["symbol"], name: "index_stocks_on_symbol", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,8 +58,8 @@ ActiveRecord::Schema.define(version: 2018_08_08_160105) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.boolean "admin", default: false
-    t.decimal "balance", precision: 7, scale: 2
-    t.decimal "monthly_contribution", precision: 7, scale: 2
+    t.decimal "balance", null: false
+    t.decimal "monthly_contribution", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
