@@ -1,8 +1,8 @@
 class CreateStockOwnerships < ActiveRecord::Migration[5.2]
   def change
     create_table :stock_ownerships do |t|
-      t.decimal :price_bought, null: false, precision: 7, scale: 2
-      t.integer :amount, null: false
+      t.decimal :price, null: false, precision: 7, scale: 2
+      t.integer :share, null: false
       t.decimal :high_range, precision: 7, scale: 2
       t.decimal :low_range, precision: 7, scale: 2
 

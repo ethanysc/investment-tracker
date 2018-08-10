@@ -2,7 +2,7 @@ import React from 'react'
 
 const StocksIndexTile = (props) => {
   return(
-    <li>
+    <div className='panel callout radius'>
       <div>Symbol: {props.stock.symbol}</div>
       <div>Company Name: {props.stock.companyName}</div>
       <div>Primary Exchange: {props.stock.primaryExchange}</div>
@@ -16,7 +16,7 @@ const StocksIndexTile = (props) => {
       <div>Change: {props.stock.change}</div>
       <div>Change %: {props.stock.changePercent}%</div>
       <button className='btn-add' name={JSON.stringify(props.stock)} onClick={props.handleClick}>Add to List</button>
-    </li>
+    </div>
   )
 }
 
