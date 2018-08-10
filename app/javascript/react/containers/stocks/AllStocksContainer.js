@@ -137,30 +137,6 @@ class AllStocksContainer extends React.Component {
         <div className="">
           <ul>{stocksList}</ul>
         </div>
-
-        <ul className="tabs" data-tab>
-          <li className="tab-title active"><a href="#panel1">Tab 1</a></li>
-          <li className="tab-title"><a href="#panel2">Tab 2</a></li>
-          <li className="tab-title"><a href="#panel3">Tab 3</a></li>
-          <li className="tab-title"><a href="#panel4">Tab 4</a></li>
-        </ul>
-        <div className="tabs-content">
-          <div className="content active" id="panel1">
-            <p>This is the first panel of the basic tab example. You can place all sorts of content here including a grid.</p>
-          </div>
-          <div className="content" id="panel2">
-            <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
-          </div>
-          <div className="content" id="panel3">
-            <p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
-          </div>
-          <div className="content" id="panel4">
-            <p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
-          </div>
-        </div>
-
-
-
       </div>
     )
   }

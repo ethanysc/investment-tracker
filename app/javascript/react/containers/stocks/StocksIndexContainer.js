@@ -5,7 +5,7 @@ class StocksIndexContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      stocks: [],
+      myStocks: [],
       errors: []
     }
     this.timeOfDay = this.timeOfDay.bind(this)
@@ -25,10 +25,10 @@ class StocksIndexContainer extends React.Component {
     .then(response => response.json())
     .then(body => {
       if (body){
-        this.setState({ stocks: body })
+        this.setState({ myStocks: body })
       }
       else {
-        this.setState({ errors: errors.concat(body) })
+        this.setState({ errors: this.state.errors.concat(body) })
       }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -48,12 +48,15 @@ class StocksIndexContainer extends React.Component {
   }
 
   render(){
-    let stocks = ''
-    if (this.state.stocks.length > 0) {
-      stocks = this.state.stocks.map((stock) => {
+    let myStocks = ''
+    if (this.state.myStocks.length > 0) {
+      myStocks = this.state.myStocks.map((stock) => {
         return(
-          <li>
-          </li>
+          <StocksIndexTile
+            key={stock.symbol}
+            stock={stock}
+            handleClick={handleAdd}
+          />
         )
       })
     }
@@ -63,7 +66,7 @@ class StocksIndexContainer extends React.Component {
         <div className='distribution-chart'>Distribution Chart</div>
         <div className='investment-line-graph'>Investment Line Graph</div>
         <div className='stocks-list'>List of Stock Investments</div>
-
+        {myStocks}
       </div>
     )
   }

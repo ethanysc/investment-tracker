@@ -1,7 +1,11 @@
 class Api::V1::StocksController < ApiController
   def index
-    binding.pry
     if(current_user)
+      current_user.stocks.each do |stock|
+        fetchObj = FetchStock.new(stock.symbol)
+        binding.pry
+        stock = fetchObj.get_stock
+      end
       render json: current_user.stocks
     else
       render json: current_user
