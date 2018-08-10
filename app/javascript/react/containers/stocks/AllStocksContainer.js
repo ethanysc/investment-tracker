@@ -35,6 +35,10 @@ class AllStocksContainer extends React.Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  componentDidUpdate(){
+    $(document).foundation('tab', 'reflow');
+  }
+
   fetchSectorStocks(sectorName){
     fetch(`https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=${sectorName}`)
       .then(response => {
@@ -126,6 +130,19 @@ class AllStocksContainer extends React.Component {
     return(
       <div className='stock-index wrapper'>
         <h1 className='stock-index header'>List of Stocks</h1>
+
+          <ul className="tabs" data-tab>
+            <li className="tab-title active"><a href="#panel1">Tab 1</a></li>
+            <li className="tab-title"><a href="#panel1">Tab 2</a></li>
+            <li className="tab-title"><a href="#panel1">Tab 3</a></li>
+            <li className="tab-title"><a href="#panel1">Tab 4</a></li>
+          </ul>
+          <div className="tabs-content">
+            <div className="content active" id="panel1">
+              <p>This is the first panel of the basic tab example. You can place all sorts of content here including a grid.</p>
+            </div>
+          </div>
+
 
           <button className="btn-edge" onClick={handleCategories} name='Financials'>Financials</button>
           <button className="btn-middle" onClick={handleCategories} name='Technology'>Technology</button>
