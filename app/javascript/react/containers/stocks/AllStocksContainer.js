@@ -71,6 +71,7 @@ class AllStocksContainer extends React.Component {
       high: jsonPayload.high,
       low: jsonPayload.low,
       price: jsonPayload.latestPrice,
+      volume: jsonPayload.latestVolume,
       change: jsonPayload.change,
       change_percent: jsonPayload.changePercent
     }
@@ -88,7 +89,7 @@ class AllStocksContainer extends React.Component {
           let errorMessage = `${response.status} (${response.statusText})`,
               error = new Error(errorMessage)
           if(response.status == 401){
-            alert("You must be signed in to leave reviews!!!")
+            alert("You must be signed in to add to list of stocks!!!")
           }
           throw(error)
         }
