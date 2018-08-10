@@ -19,6 +19,8 @@ feature 'user registers', %Q{
     fill_in 'Email', with: 'john@example.com'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'
+    fill_in 'Starting Deposit', with: 1000
+    fill_in 'Monthly Contribution', with: 50
 
     click_button 'Sign up'
 

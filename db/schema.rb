@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 2018_08_10_152523) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.boolean "admin", default: false
-    t.decimal "balance", precision: 7, scale: 2, null: false
-    t.decimal "monthly_contribution", precision: 7, scale: 2, null: false
+    t.decimal "balance", null: false
+    t.decimal "monthly_contribution", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

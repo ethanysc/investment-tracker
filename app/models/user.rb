@@ -5,8 +5,6 @@ class User < ApplicationRecord
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
-  # validates :balance, format: { with: /\A\d+(?:\.\d{2})?\z/ }
-  # validates :monthly_contribution, numericality: { greate_than: 0 }
 
   has_many :stock_ownerships
   has_many :stocks, through: :stock_ownerships
