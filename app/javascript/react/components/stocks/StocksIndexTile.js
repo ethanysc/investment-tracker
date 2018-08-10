@@ -15,6 +15,7 @@ const StocksIndexTile = (props) => {
       <div>Volume: {props.stock.latestVolume}</div>
       <div>Change: {props.stock.change}</div>
       <div>Change %: {props.stock.changePercent}%</div>
+      <button className='btn-add' name={JSON.stringify(props.stock)} onClick={props.handleClick}>Add to List</button>
     </li>
   )
 }

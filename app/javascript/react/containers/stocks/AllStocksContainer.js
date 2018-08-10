@@ -1,4 +1,5 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 
 import StocksIndexTile from '../../components/stocks/StocksIndexTile'
 
@@ -6,52 +7,95 @@ class AllStocksContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      stocks: []
+      stocks: [],
+      newStock: null
     }
-    this.fetchStocks = this.fetchStocks.bind(this)
+    this.fetchSectorStocks = this.fetchSectorStocks.bind(this)
+    this.postStock = this.postStock.bind(this)
   }
 
   componentDidMount(){
     fetch(`https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=Financials`)
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({
-        stocks: this.state.stocks.concat(body)
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw(error);
+        }
       })
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
+      .then(response => response.json())
+      .then(body => {
+        this.setState({
+          stocks: this.state.stocks.concat(body)
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  fetchStocks(sectorName){
+  fetchSectorStocks(sectorName){
     fetch(`https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=${sectorName}`)
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({
-        stocks: body
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw(error);
+        }
       })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({
+          stocks: body
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }
+
+  postStock(payload){
+    let jsonPayload = JSON.parse(payload)
+    let formatPayload = {
+      symbol: jsonPayload.symbol,
+      company_name: jsonPayload.companyName,
+      primary_exchange: jsonPayload.primaryExchange,
+      sector: jsonPayload.sector,
+      open: jsonPayload.open,
+      close: jsonPayload.close,
+      high: jsonPayload.high,
+      low: jsonPayload.low,
+      price: jsonPayload.latestPrice,
+      change: jsonPayload.change,
+      change_percent: jsonPayload.changePercent
+    }
+    fetch(`/api/v1/stocks.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify(formatPayload)
     })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
+      .then(response => {
+        if(response.ok){
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage)
+          throw(error)
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        debugger
+        browserHistory.push(`/stocks/${body.newStock.id}`)
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   render(){
+    let handleAdd = (event) => {
+      this.postStock(event.target.name)
+    }
     let stocksList = ''
     if (this.state.stocks.length > 0){
       this.state.stocks.sort(function(a, b){
@@ -62,6 +106,7 @@ class AllStocksContainer extends React.Component {
           <StocksIndexTile
             key={stock.symbol}
             stock={stock}
+            handleClick={handleAdd}
           />
         )
       })
@@ -69,7 +114,7 @@ class AllStocksContainer extends React.Component {
 
     let handleCategories = (event) => {
       event.preventDefault()
-      this.fetchStocks(event.target.name)
+      this.fetchSectorStocks(event.target.name)
     }
 
     return(
