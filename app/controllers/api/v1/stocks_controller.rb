@@ -13,7 +13,8 @@ class Api::V1::StocksController < ApiController
       StockOwnership.create(user: current_user, stock: new_stock)
       render json: { newStock: new_stock }
     else
-      render json: {errors: new_stock.errors }
+      flash[:error] = "Selected stock is already in your portfolio"
+      render json: {errors: new_stock.errors }, status: 422
     end
   end
 

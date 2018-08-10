@@ -1,5 +1,6 @@
 class Stock < ApplicationRecord
   validates :symbol, presence: true
+  validates_uniqueness_of :symbol, case_sensitive: true
   validates :company_name, presence: true
   validates :primary_exchange, presence: true
   validates :sector, presence: true
@@ -10,7 +11,7 @@ class Stock < ApplicationRecord
   validates :price, presence: true
   validates :change, presence: true
   validates :change_percent, presence: true
-  
+
   has_many :stock_ownerships
   has_many :users, through: :stock_ownerships
 
