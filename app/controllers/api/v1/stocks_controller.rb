@@ -36,8 +36,9 @@ class Api::V1::StocksController < ApiController
   end
 
   def create
+    binding.pry
     sector = Sector.identify_sector(params[:sector])
-    new_stock = Stock.new(symbol: params[:symbol], sector: sector)
+    # new_stock = Stock.new(symbol: params[:symbol], sector: sector)
     if new_stock.save
       # StockOwnership.create(
       #   user: current_user,
@@ -45,7 +46,7 @@ class Api::V1::StocksController < ApiController
       #   price: params[:price],
       #   share: params[:volume]
       # )
-      # StockOwnership class method to create StockOwnership, decrease current_user by price * shares
+      # StockOwnership class method to create StockOwnership, decrease current_user balance by price * shares
       render json: { newStock: new_stock }
     else
       render json: { errors: "Selected stock is already in your portfolio" }, status: 422

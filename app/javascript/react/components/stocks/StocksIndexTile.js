@@ -1,4 +1,11 @@
 import React from 'react'
+import Slider from 'rc-slider'
+import Tooltip from 'rc-tooltip'
+import '!style-loader!css-loader!rc-slider/assets/index.css';
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip
+const Range = createSliderWithTooltip(Slider.Range)
+const wrapperStyle = { width: 400, margin: 50 }
 
 const StocksIndexTile = (props) => {
   return(
@@ -15,6 +22,10 @@ const StocksIndexTile = (props) => {
       <div>Volume: {props.stock.latestVolume}</div>
       <div>Change: {props.stock.change}</div>
       <div>Change %: {props.stock.changePercent}%</div>
+      <div style={wrapperStyle}>
+      <p>Set your acceptable investment range:</p>
+        <Range min={props.stock.low - 10} max={props.stock.high + 10} defaultValue={[props.stock.low - 1, props.stock.high + 1]} tipFormatter={value => `$${value}`} />
+      </div>
       <button className='btn-add' name={JSON.stringify(props.stock)} onClick={props.handleClick}>Add to List</button>
     </div>
   )
