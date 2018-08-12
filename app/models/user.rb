@@ -24,19 +24,7 @@ class User < ApplicationRecord
     end
   end
 
-  def stock_price (stock)
-    self.stock_ownerships.where(user: self, stock: stock).first.price
-  end
-
-  def stock_share (stock)
-    self.stock_ownerships.where(user: self, stock: stock).first.share
-  end
-
-  def stock_high_range (stock)
-    self.stock_ownerships.where(user: self, stock: stock).first.high_range
-  end
-
-  def stock_low_range (stock)
-    self.stock_ownerships.where(user: self, stock: stock).first.low_range
+  def search_stock (stock)
+    self.stock_ownerships.where(user: self, stock: stock).first
   end
 end

@@ -1,10 +1,17 @@
 class Api::V1::StocksController < ApiController
   def index
     if(current_user)
+      fetchArray = []
+      stockArray = []
       current_user.stocks.each do |stock|
-        fetchObj = FetchStock.new(stock.symbol)
-        binding.pry
-        stock = fetchObj.get_stock
+        parser = StockParser.new
+        fetchObj = parser.get_stock(stock.symbol).first
+        stockObj = {
+          price: current_user.stock_price(stock),
+          share: current_user.stock_share(stock),
+          highRange: current_user.stock_high_range(stock),
+          lowRange: current_user.stock_low_range(stock)
+        }
       end
       render json: current_user.stocks
     else
@@ -15,18 +22,17 @@ class Api::V1::StocksController < ApiController
   def show
     stock = Stock.find(params[:id])
     parser = StockParser.new
-    fetchObj = parser.get_stock(stock.symbol).first
-    stockObj = {
-      price: current_user.stock_price(stock),
-      share: current_user.stock_share(stock),
-      highRange: current_user.stock_high_range(stock),
-      lowRange: current_user.stock_low_range(stock)
-    }
-    compareObj = {
+    fetch_obj = parser.get_stock(stock.symbol).first
 
+    user_stock = current_user.search_stock(stock)
+    stock_obj = {
+      price: user_stock.price,
+      share: user_stock.share,
+      highRange: user_stock.high_range,
+      lowRange: user_stock.low_range
     }
     binding.pry
-    render json: { stock: fetchObj, userInfo: stockObj }
+    render json: { stock: fetch_obj, userInfo: stock_obj }
   end
 
   def create
