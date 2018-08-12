@@ -1,7 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-import StocksIndexTile from '../../components/stocks/StocksIndexTile'
+import StocksIndexTile from './StocksIndexTile'
 
 class AllStocksContainer extends React.Component {
   constructor(props){
@@ -62,19 +62,22 @@ class AllStocksContainer extends React.Component {
   postStock(payload){
     let jsonPayload = JSON.parse(payload)
     let formatPayload = {
-      symbol: jsonPayload.symbol,
-      company_name: jsonPayload.companyName,
-      primary_exchange: jsonPayload.primaryExchange,
-      sector: jsonPayload.sector,
-      open: jsonPayload.open,
-      close: jsonPayload.close,
-      high: jsonPayload.high,
-      low: jsonPayload.low,
-      price: jsonPayload.latestPrice,
-      volume: jsonPayload.latestVolume,
-      change: jsonPayload.change,
-      change_percent: jsonPayload.changePercent
+      symbol: jsonPayload.stock.symbol,
+      company_name: jsonPayload.stock.companyName,
+      primary_exchange: jsonPayload.stock.primaryExchange,
+      sector: jsonPayload.stock.sector,
+      open: jsonPayload.stock.open,
+      close: jsonPayload.stock.close,
+      high: jsonPayload.stock.high,
+      low: jsonPayload.stock.low,
+      price: jsonPayload.stock.latestPrice,
+      volume: jsonPayload.stock.latestVolume,
+      change: jsonPayload.stock.change,
+      change_percent: jsonPayload.stock.changePercent,
+      low_range: jsonPayload.range.value[0],
+      high_range: jsonPayload.range.value[1]
     }
+    debugger
     fetch(`/api/v1/stocks.json`, {
       credentials: 'same-origin',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -99,6 +102,9 @@ class AllStocksContainer extends React.Component {
         if (body.newStock){
           browserHistory.push(`/stocks/${body.newStock.id}`)
         }
+        else {
+          this.setState({ errors: this.state.errors.concat(body.errors) })
+        }
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
@@ -118,6 +124,7 @@ class AllStocksContainer extends React.Component {
             key={stock.symbol}
             stock={stock}
             handleClick={handleAdd}
+            errors={this.state.errors}
           />
         )
       })

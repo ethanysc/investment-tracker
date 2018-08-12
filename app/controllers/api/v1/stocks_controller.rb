@@ -36,38 +36,31 @@ class Api::V1::StocksController < ApiController
   end
 
   def create
+    find_sector = Sector.new
+    sector = find_sector.identify_sector(params[:sector])
+    new_stock = Stock.new(symbol: params[:symbol], sector: sector)
     binding.pry
-    sector = Sector.identify_sector(params[:sector])
-    # new_stock = Stock.new(symbol: params[:symbol], sector: sector)
     if new_stock.save
-      # StockOwnership.create(
-      #   user: current_user,
-      #   stock: new_stock,
-      #   price: params[:price],
-      #   share: params[:volume]
-      # )
-      # StockOwnership class method to create StockOwnership, decrease current_user balance by price * shares
-      render json: { newStock: new_stock }
+      new_balance = current_user.balance - params[:price] * params[:share]
+      if new_balance > 0
+        new_stock_record = StockOwnership.create(
+          user: current_user,
+          stock: new_stock,
+          price: params[:price],
+          share: params[:volume],
+          high_range: params[:high_range],
+          low_range: params[:low_range]
+        )
+        current_user.update(balance: new_balance)
+        binding.pry
+        render json: { newStock: new_stock }
+      else
+        binding.pry
+        render json: { errors: "You don't have enough balance for this purchase" }, status: 422
+      end
     else
+      binding.pry
       render json: { errors: "Selected stock is already in your portfolio" }, status: 422
     end
-  end
-
-  def stock_params
-    params
-      .require(:stock)
-      .permit(
-        :symbol,
-        :company_name,
-        :primary_exchange,
-        :sector,
-        :open,
-        :close,
-        :high,
-        :low,
-        :price,
-        :change,
-        :change_percent
-      )
   end
 end
