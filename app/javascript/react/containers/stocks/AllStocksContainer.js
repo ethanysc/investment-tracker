@@ -1,7 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-import StocksIndexTile from './StocksIndexTile'
+import StocksIndexTile from '../../components/stocks/StocksIndexTile'
 
 class AllStocksContainer extends React.Component {
   constructor(props){
@@ -60,29 +60,12 @@ class AllStocksContainer extends React.Component {
   }
 
   postStock(payload){
-    let jsonPayload = JSON.parse(payload)
-    let formatPayload = {
-      symbol: jsonPayload.stock.symbol,
-      company_name: jsonPayload.stock.companyName,
-      primary_exchange: jsonPayload.stock.primaryExchange,
-      sector: jsonPayload.stock.sector,
-      open: jsonPayload.stock.open,
-      close: jsonPayload.stock.close,
-      high: jsonPayload.stock.high,
-      low: jsonPayload.stock.low,
-      price: jsonPayload.stock.latestPrice,
-      volume: jsonPayload.stock.latestVolume,
-      change: jsonPayload.stock.change,
-      change_percent: jsonPayload.stock.changePercent,
-      low_range: jsonPayload.range.value[0],
-      high_range: jsonPayload.range.value[1]
-    }
     debugger
     fetch(`/api/v1/stocks.json`, {
       credentials: 'same-origin',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       method: 'POST',
-      body: JSON.stringify(formatPayload)
+      body: JSON.stringify(payload)
     })
       .then(response => {
         if(response.ok){
@@ -110,8 +93,8 @@ class AllStocksContainer extends React.Component {
   }
 
   render(){
-    let handleAdd = (event) => {
-      this.postStock(event.target.name)
+    let handleAdd = (payload) => {
+      this.postStock(payload)
     }
     let stocksList = ''
     if (this.state.stocks.length > 0){

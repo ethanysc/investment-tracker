@@ -1,5 +1,7 @@
 import React from 'react'
 
+import StocksIndexTile from '../../components/stocks/StocksIndexTile'
+
 class StocksIndexContainer extends React.Component {
 
   constructor(props){
@@ -55,7 +57,6 @@ class StocksIndexContainer extends React.Component {
           <StocksIndexTile
             key={stock.symbol}
             stock={stock}
-            handleClick={handleAdd}
           />
         )
       })

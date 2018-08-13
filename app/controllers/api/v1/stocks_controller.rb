@@ -5,15 +5,15 @@ class Api::V1::StocksController < ApiController
       stockArray = []
       current_user.stocks.each do |stock|
         parser = StockParser.new
-        fetchObj = parser.get_stock(stock.symbol).first
-        stockObj = {
+        fetchArray << parser.get_stock(stock.symbol).first
+        stockArray << {
           price: current_user.stock_price(stock),
           share: current_user.stock_share(stock),
           highRange: current_user.stock_high_range(stock),
           lowRange: current_user.stock_low_range(stock)
         }
       end
-      render json: current_user.stocks
+      render json: { stock: fetchArray, userInfo: stockArray }
     else
       render json: current_user
     end
@@ -41,7 +41,7 @@ class Api::V1::StocksController < ApiController
     new_stock = Stock.new(symbol: params[:symbol], sector: sector)
     binding.pry
     if new_stock.save
-      new_balance = current_user.balance - params[:price] * params[:share]
+      new_balance = current_user.balance - params[:price] * params[:share].to_i
       if new_balance > 0
         new_stock_record = StockOwnership.create(
           user: current_user,
@@ -56,11 +56,11 @@ class Api::V1::StocksController < ApiController
         render json: { newStock: new_stock }
       else
         binding.pry
-        render json: { errors: "You don't have enough balance for this purchase" }, status: 422
+        render json: { errors: "You don't have enough balance for this purchase" }
       end
     else
       binding.pry
-      render json: { errors: "Selected stock is already in your portfolio" }, status: 422
+      render json: { errors: "Selected stock is already in your portfolio" }
     end
   end
 end
