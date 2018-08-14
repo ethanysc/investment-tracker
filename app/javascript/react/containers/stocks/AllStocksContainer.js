@@ -118,9 +118,9 @@ class AllStocksContainer extends React.Component {
     }
 
     return(
-      <div className='stock-index wrapper'>
-        <h1 className='stock-index header'>List of Stocks</h1>
-
+      <div className="row stock-index wrapper">
+        <div className="small-10 columns">
+          <h1 className='stock-index header'>List of Stocks</h1>
           <ul className="tabs" data-tab>
             <li className="tab-title active" onClick={handleCategories} name='Financials'><a href="#panel1">Financials</a></li>
             <li className="tab-title" onClick={handleCategories} name='Technology'><a href="#panel1">Technology</a></li>
@@ -135,6 +135,7 @@ class AllStocksContainer extends React.Component {
               <ul>{stocksList}</ul>
             </div>
           </div>
+        </div>
       </div>
     )
   }

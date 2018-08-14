@@ -7,7 +7,8 @@ class StockShowContainer extends React.Component {
     super(props)
     this.state = {
       stock: null,
-      userInfo: null
+      userInfo: null,
+      stats: null
     }
   }
 
@@ -26,11 +27,11 @@ class StockShowContainer extends React.Component {
       .then(body => {
         this.setState({
           stock: body.stock,
-          userInfo: body.userInfo
+          userInfo: body.userInfo,
+          stats: body.stats
         })
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
-
   }
 
   render(){
@@ -40,6 +41,7 @@ class StockShowContainer extends React.Component {
                 id={this.state.stock.id}
                 stock={this.state.stock}
                 userInfo={this.state.userInfo}
+                stats={this.state.stats}
               />
     }
     else{
@@ -47,9 +49,10 @@ class StockShowContainer extends React.Component {
     }
 
     return(
-      <div>
-        <div>This is the stocks show page</div>
-        {stock}
+      <div className="row">
+        <div className='columns'>
+          {stock}
+        </div>
       </div>
     )
   }

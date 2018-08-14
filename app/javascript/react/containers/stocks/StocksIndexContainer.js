@@ -62,12 +62,14 @@ class StocksIndexContainer extends React.Component {
       })
     }
     return(
-      <div className='porfolio-index-wrapper'>
-        <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
-        <div className='distribution-chart'>Distribution Chart</div>
-        <div className='investment-line-graph'>Investment Line Graph</div>
-        <div className='stocks-list'>List of Stock Investments</div>
-        {myStocks}
+      <div className='porfolio-index-wrapper row'>
+        <div className='columns'>
+          <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
+          <div className='distribution-chart'>Distribution Chart</div>
+          <div className='investment-line-graph'>Investment Line Graph</div>
+          <div className='stocks-list'>List of Stock Investments</div>
+          {myStocks}
+        </div>
       </div>
     )
   }
