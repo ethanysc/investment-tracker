@@ -8,7 +8,7 @@ class Api::V1::StocksController < ApiController
         fetchArray << parser.get_stock(stock.symbol).first
         current_stock = current_user.search_stock(stock)
         stockArray << {
-          id: Stock.where(symbol: stock.symbol).first.id,
+          id: stock.id,
           balance: current_user.balance,
           monthlyContribution: current_user.monthly_contribution,
           price: current_stock.price,
@@ -39,7 +39,7 @@ class Api::V1::StocksController < ApiController
     stock_news = parser.get_news(stock.symbol)
     stats_obj = {
       profit: (fetch_obj[:price] - stock_obj[:price]) * stock_obj[:share],
-      profitPercent: (fetch_obj[:price] - stock_obj[:price]) / stock_obj[:price] * 100,
+      profitPercent: "%.2f" % ((fetch_obj[:price] - stock_obj[:price]) / stock_obj[:price] * 100),
       news: stock_news
     }
     render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj }

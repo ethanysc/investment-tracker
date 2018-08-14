@@ -35,7 +35,7 @@ const StockShowTile = (props) => {
         <div>Latest Price: ${stock.price}</div>
         <div>Latest Volume: {stock.volume}</div>
         <div>Change: {stock.change}</div>
-        <div>Change %: {stock.changePercent}%</div>
+        <div>Change %: {Math.round(stock.changePercent * 100) / 100}%</div>
       </div>
       <div className='panel callout radius'>
         <h1>Investment Info</h1>

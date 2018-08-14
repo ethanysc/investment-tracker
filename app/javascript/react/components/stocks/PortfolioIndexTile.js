@@ -8,7 +8,7 @@ const PortfolioIndexTile = (props) => {
     userInfo = props.userInfo
   }
   return(
-    <div className='large-3 columns panel callout radius'>
+    <div className='large-3 columns panel callout radius data-equalizer-watch'>
       <div>Symbol: <Link to={`/stocks/${userInfo.id}`}>{stock.symbol}</Link></div>
       <div>Company Name: {stock.companyName}</div>
       <div>Primary Exchange: {stock.primaryExchange}</div>

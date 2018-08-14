@@ -68,6 +68,8 @@ class StocksIndexContainer extends React.Component {
         )
       })
     }
+    debugger
+
 
     let errors = ''
     if (this.state.errors.length > 0){
@@ -77,25 +79,36 @@ class StocksIndexContainer extends React.Component {
     return(
       <div className='porfolio-index-wrapper'>
         <div className='row'>
-          <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
-        </div>
-        <div className='row'>
-          <div className='distribution-chart large-4 columns panel callout radius'>
-            Distribution Chart
+          <div className='columns small-10 small-centered'>
+          <div className='row'>
+            <div className='columns small-10 small-centered'>
+              <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
+            </div>
           </div>
-          <div className='investment-line-graph large-8 columns panel callout radius'>
-            Investment Line Graph
+          <div className='row'>
+              <div className='distribution-chart large-4 columns panel callout radius'>
+                Distribution Chart
+              </div>
+              <div className='investment-line-graph large-8 columns panel callout radius'>
+                Investment Line Graph
+              </div>
           </div>
-        </div>
-        <div className='stocks-list row panel callout radius'>
-          Current Balance: ${balance} <br/>
-          Monthly Contribution: ${monthlyContribution} <br/>
-        </div>
-        <div className='stocks-list row panel callout radius'>
-          List of Stock Investments</div>
-        <div className='row'>{myStocks}</div>
-        {errors}
+          <div className='stocks-list row panel callout radius'>
+            <div className='columns small-10 small-centered'>
+              Current Balance: ${balance} <br/>
+              Monthly Contribution: ${monthlyContribution} <br/>
+            </div>
+          </div>
+          <div className='stocks-list row panel callout radius'>
+            <div className='columns small-10 small-centered'>
+              List of Stock Investments
+            </div>
+          </div>
+          <div className='row'>{myStocks}</div>
+            {errors}
       </div>
+    </div>
+  </div>
     )
   }
 }

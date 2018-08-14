@@ -36,4 +36,9 @@ class User < ApplicationRecord
     end
     return false
   end
+
+  # def update_monthly_balance
+  #   today = Time.new
+  #   if today.day
+  # end
 end

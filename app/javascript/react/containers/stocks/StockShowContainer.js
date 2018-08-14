@@ -50,7 +50,7 @@ class StockShowContainer extends React.Component {
 
     return(
       <div className="row">
-        <div className='columns'>
+        <div className='columns small-10 small-centered'>
           {stock}
         </div>
       </div>
