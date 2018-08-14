@@ -1,13 +1,13 @@
 class Api::V1::StocksController < ApiController
   def index
     if !current_user.nil?
-      fetchArray = []
-      stockArray = []
+      fetch_array = []
+      stock_array = []
       current_user.stocks.each do |stock|
         parser = StockParser.new
-        fetchArray << parser.get_stock(stock.symbol).first
+        fetch_array << parser.get_stock(stock.symbol).first
         current_stock = current_user.search_stock(stock)
-        stockArray << {
+        stock_array << {
           id: stock.id,
           balance: current_user.balance,
           monthlyContribution: current_user.monthly_contribution,
@@ -17,7 +17,11 @@ class Api::V1::StocksController < ApiController
           lowRange: current_stock.low_range
         }
       end
-      render json: { stocks: fetchArray, userInfo: stockArray }
+      pie_chart = [['Sector', 'Count']]
+      Sector.all.each do |sector|
+        pie_chart << [sector.sector, current_user.sector_count(sector)]
+      end
+      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart}
     else
       render json: { errors: 'Please log in to view your investment portfolio'}
     end
@@ -42,6 +46,7 @@ class Api::V1::StocksController < ApiController
       profitPercent: "%.2f" % ((fetch_obj[:price] - stock_obj[:price]) / stock_obj[:price] * 100),
       news: stock_news
     }
+
     render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj }
   end
 

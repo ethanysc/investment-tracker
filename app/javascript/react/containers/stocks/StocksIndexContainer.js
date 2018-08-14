@@ -1,6 +1,7 @@
 import React from 'react'
 
 import PortfolioIndexTile from '../../components/stocks/PortfolioIndexTile'
+import PieChart from '../../components/charts/PieChart'
 
 class StocksIndexContainer extends React.Component {
 
@@ -9,6 +10,7 @@ class StocksIndexContainer extends React.Component {
     this.state = {
       stocks: [],
       userInfo: [],
+      pieData: [],
       errors: []
     }
     this.timeOfDay = this.timeOfDay.bind(this)
@@ -30,11 +32,12 @@ class StocksIndexContainer extends React.Component {
       if (!body.errors){
         this.setState({
           stocks: this.state.stocks.concat(body.stocks),
-          userInfo: this.state.userInfo.concat(body.userInfo)
+          userInfo: this.state.userInfo.concat(body.userInfo),
+          pieData: this.state.pieData.concat(body.pieChart)
         })
       }
       else {
-        this.setState({ errors: this.state.errors.concat(body) })
+        this.setState({ errors: this.state.errors.concat(body.errors) })
       }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -68,26 +71,31 @@ class StocksIndexContainer extends React.Component {
         )
       })
     }
-    debugger
-
 
     let errors = ''
     if (this.state.errors.length > 0){
       errors = this.state.errors[0]
     }
 
+    let pieChart = ''
+    if (this.state.pieData.length > 0){
+      pieChart = <PieChart
+                   data={this.state.pieData}
+                 />
+    }
+
     return(
-      <div className='porfolio-index-wrapper'>
+      <div className='portfolio-index-wrapper'>
         <div className='row'>
           <div className='columns small-10 small-centered'>
           <div className='row'>
-            <div className='columns small-10 small-centered'>
+            <div className='greetings columns small-12 small-centered'>
               <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
             </div>
           </div>
           <div className='row'>
               <div className='distribution-chart large-4 columns panel callout radius'>
-                Distribution Chart
+                {pieChart}
               </div>
               <div className='investment-line-graph large-8 columns panel callout radius'>
                 Investment Line Graph

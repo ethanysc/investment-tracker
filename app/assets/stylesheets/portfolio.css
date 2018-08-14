@@ -1,0 +1,61 @@
+body {
+  background-color: #07273A;
+  color: #F3F5F6;
+  font-size: 100%
+}
+
+h1 {
+  color: #F3F5F6;
+  text-align: center;
+}
+
+
+h2 {
+  color: #F3F5F6;
+  text-align: center;
+}
+
+.top-bar {
+  height: 70px;
+}
+
+.top-bar * {
+  font-size: 24px;
+}
+
+.portfolio-index-wrapper {
+  background-color: #07273A;
+}
+
+.distribution-chart {
+  color: #F3F5F6;
+  background-color: #0B3148;
+}
+
+svg {
+    padding-top: 20px !important;
+}
+
+.investment-line-graph {
+  background-color: #0B3148;
+}
+
+.greetings {
+  height: 500px;
+  width: 100%;
+  text-align: center;
+  background-color: #258790;
+  padding-top: 250px;
+}
+
+.field {
+  color: #F3F5F6;
+}
+
+.portfolio-index-tile{
+  height: 300px;
+}
+
+/* .columns {
+  text-align: center;
+}
