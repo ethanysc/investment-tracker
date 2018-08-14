@@ -27,6 +27,15 @@ class StockParser
     @stock << stock_data
   end
 
+  def get_batch(query, stocks)
+    response = HTTParty.get(query)
+    batch_array = []
+    stocks.each do |stock|
+      batch_array << response[stock.symbol]["quote"]
+    end
+    batch_array
+  end
+
   def get_news(symbol)
     response = HTTParty.get("https://api.iextrading.com/1.0/stock/#{symbol}/batch?types=news")
     stock_news = response["news"]

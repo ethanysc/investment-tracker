@@ -13,8 +13,8 @@ const PortfolioIndexTile = (props) => {
       <div>Company Name: {stock.companyName}</div>
       <div>Primary Exchange: {stock.primaryExchange}</div>
       <div>Sector: {stock.sector}</div>
-      <div>Price: ${stock.price}</div>
-      <div>Volume: {stock.volume}</div>
+      <div>Price: ${stock.latestPrice}</div>
+      <div>Volume: {stock.latestVolume}</div>
       <div>Change: ${stock.change}</div>
       <div>Price Bought: ${userInfo.price}</div>
       <div>Share: {userInfo.share}</div>
