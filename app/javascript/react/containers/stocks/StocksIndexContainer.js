@@ -57,32 +57,54 @@ class StocksIndexContainer extends React.Component {
   }
 
   render(){
-    let myStocks, balance, monthlyContribution = ''
+    let myStocks, userInfo = ''
     if (this.state.stocks.length > 0) {
-      balance = this.state.userInfo[0].balance
-      monthlyContribution = this.state.userInfo[0].monthlyContribution
-      myStocks = this.state.stocks.map((stock, index) => {
-        return(
-          <PortfolioIndexTile
-            key={stock.id}
-            stock={stock}
-            userInfo={this.state.userInfo[index]}
-          />
-        )
-      })
+      userInfo = <div className='stocks-list row panel callout radius'>
+        <div className='columns small-10 small-centered'>
+          Current Balance: ${this.state.userInfo[0].balance} <br/>
+          Monthly Contribution: ${this.state.userInfo[0].monthlyContribution} <br/>
+        </div>
+      </div>
+      let stocks = this.state.stocks.map((stock, index) => {
+          return(
+            <PortfolioIndexTile
+              key={stock.id}
+              stock={stock}
+              userInfo={this.state.userInfo[index]}
+            />
+          )
+        })
+      myStocks = <div>
+        <div className='stocks-list row panel callout radius'>
+          <div className='columns small-10 small-centered'>
+            List of Stock Investments
+          </div>
+        </div><div className='row'>{stocks}</div>
+      </div>
     }
 
     let errors = ''
     if (this.state.errors.length > 0){
-      errors = this.state.errors[0]
+      errors = <div className='row'>
+        <div className='log-in columns small-12 small-centered'>
+          {this.state.errors[0]}<br />
+        <button className='log-in-btn radius'><a href='/users/sign_in'>Log In</a></button>
+        <button className='sign-up-btn radius'><a href='/users/sign_up'>Sign Up</a></button>
+        </div>
+      </div>
     }
 
     let pieChart = ''
     if (this.state.pieData.length > 0){
-      pieChart = <PieChart
-                   data={this.state.pieData}
-                 />
+      pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
+        My Investment Diversification<br />
+        <PieChart
+           data={this.state.pieData}
+         />
+      </div>
     }
+
+    let trendingChart = ''
 
     return(
       <div className='portfolio-index-wrapper'>
@@ -94,26 +116,14 @@ class StocksIndexContainer extends React.Component {
             </div>
           </div>
           <div className='row'>
-              <div className='distribution-chart large-4 columns panel callout radius'>
-                {pieChart}
-              </div>
+            {pieChart}
               <div className='investment-line-graph large-8 columns panel callout radius'>
                 Investment Line Graph
               </div>
           </div>
-          <div className='stocks-list row panel callout radius'>
-            <div className='columns small-10 small-centered'>
-              Current Balance: ${balance} <br/>
-              Monthly Contribution: ${monthlyContribution} <br/>
-            </div>
-          </div>
-          <div className='stocks-list row panel callout radius'>
-            <div className='columns small-10 small-centered'>
-              List of Stock Investments
-            </div>
-          </div>
-          <div className='row'>{myStocks}</div>
-            {errors}
+          {userInfo}
+          {myStocks}
+          {errors}
       </div>
     </div>
   </div>

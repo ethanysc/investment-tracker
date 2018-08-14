@@ -23,7 +23,7 @@ class Api::V1::StocksController < ApiController
       end
       render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart}
     else
-      render json: { errors: 'Please log in to view your investment portfolio'}
+      render json: { errors: 'Please select an option below'}
     end
   end
 
