@@ -35,6 +35,10 @@ class AllStocksContainer extends React.Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  componentDidUpdate(){
+    $(document).foundation('tab', 'reflow');
+  }
+
   fetchSectorStocks(sectorName){
     fetch(`https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=${sectorName}`)
       .then(response => {
@@ -56,25 +60,12 @@ class AllStocksContainer extends React.Component {
   }
 
   postStock(payload){
-    let jsonPayload = JSON.parse(payload)
-    let formatPayload = {
-      symbol: jsonPayload.symbol,
-      company_name: jsonPayload.companyName,
-      primary_exchange: jsonPayload.primaryExchange,
-      sector: jsonPayload.sector,
-      open: jsonPayload.open,
-      close: jsonPayload.close,
-      high: jsonPayload.high,
-      low: jsonPayload.low,
-      price: jsonPayload.latestPrice,
-      change: jsonPayload.change,
-      change_percent: jsonPayload.changePercent
-    }
+    debugger
     fetch(`/api/v1/stocks.json`, {
       credentials: 'same-origin',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       method: 'POST',
-      body: JSON.stringify(formatPayload)
+      body: JSON.stringify(payload)
     })
       .then(response => {
         if(response.ok){
@@ -84,7 +75,7 @@ class AllStocksContainer extends React.Component {
           let errorMessage = `${response.status} (${response.statusText})`,
               error = new Error(errorMessage)
           if(response.status == 401){
-            alert("You must be signed in to leave reviews!!!")
+            alert("You must be signed in to add to list of stocks!!!")
           }
           throw(error)
         }
@@ -94,13 +85,16 @@ class AllStocksContainer extends React.Component {
         if (body.newStock){
           browserHistory.push(`/stocks/${body.newStock.id}`)
         }
+        else {
+          this.setState({ errors: this.state.errors.concat(body.errors) })
+        }
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
   render(){
-    let handleAdd = (event) => {
-      this.postStock(event.target.name)
+    let handleAdd = (payload) => {
+      this.postStock(payload)
     }
     let stocksList = ''
     if (this.state.stocks.length > 0){
@@ -113,29 +107,34 @@ class AllStocksContainer extends React.Component {
             key={stock.symbol}
             stock={stock}
             handleClick={handleAdd}
+            errors={this.state.errors}
           />
         )
       })
     }
 
     let handleCategories = (event) => {
-      event.preventDefault()
-      this.fetchSectorStocks(event.target.name)
+      this.fetchSectorStocks(event.target.innerText)
     }
 
     return(
-      <div className='stock-index wrapper'>
-        <h1 className='stock-index header'>List of Stocks</h1>
-
-          <button className="btn-edge" onClick={handleCategories} name='Financials'>Financials</button>
-          <button className="btn-middle" onClick={handleCategories} name='Technology'>Technology</button>
-          <button className="btn-middle" onClick={handleCategories} name='Health%20Care'>Healthcare</button>
-          <button className="btn-middle" onClick={handleCategories} name='Communication%20Services'>Communication Services</button>
-          <button className="btn-middle" onClick={handleCategories} name='Consumer%20Discretionary'>Consumer Discretionary</button>
-          <button className="btn-middle" onClick={handleCategories} name='Consumer%20Staples'>Consumer Staples</button>
-          <button className="btn-edge" onClick={handleCategories} name='Energy'>Energy</button>
-        <div className="">
-          <ul>{stocksList}</ul>
+      <div className="row stock-index wrapper">
+        <div className="small-10 columns">
+          <h1 className='stock-index header'>List of Stocks</h1>
+          <ul className="tabs" data-tab>
+            <li className="tab-title active" onClick={handleCategories} name='Financials'><a href="#panel1">Financials</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Technology'><a href="#panel1">Technology</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Health%20Care'><a href="#panel1">Healthcare</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Communication%20Services'><a href="#panel1">Communication Services</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Consumer%20Discretionary'><a href="#panel1">Consumer Discretionary</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Consumer%20Staples'><a href="#panel1">Consumer Staples</a></li>
+            <li className="tab-title" onClick={handleCategories} name='Energy'><a href="#panel1">Energy</a></li>
+          </ul>
+          <div className="tabs-content">
+            <div className="content active" id="panel1">
+              <ul>{stocksList}</ul>
+            </div>
+          </div>
         </div>
       </div>
     )

@@ -3,7 +3,7 @@ import { Route, IndexRoute, Router, browserHistory } from 'react-router'
 
 import AllStocksContainer from '../containers/stocks/AllStocksContainer'
 import StocksIndexContainer from '../containers/stocks/StocksIndexContainer'
-import StocksShowContainer from '../containers/stocks/StocksShowContainer'
+import StockShowContainer from '../containers/stocks/StockShowContainer'
 
 export const App = (props) => {
   return (
@@ -11,7 +11,7 @@ export const App = (props) => {
       <Route path='/' >
         <IndexRoute component={StocksIndexContainer}/>
         <Route path='/stocks' component={AllStocksContainer} />
-        <Route path='/stocks/:id' component={StocksShowContainer} />
+        <Route path='/stocks/:id' component={StockShowContainer} />
       </Route>
     </Router>
   )

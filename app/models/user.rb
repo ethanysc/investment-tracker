@@ -23,8 +23,18 @@ class User < ApplicationRecord
       where(conditions).first
     end
   end
-  #
-  # def current_user.admin?
-  #   current_user.admin
-  # end
+
+  def search_stock (stock)
+    self.stock_ownerships.where(user: self, stock: stock).first
+  end
+
+  def has_stock? (stock)
+    binding.pry
+    self.stock_ownerships.each do |record|
+      if record.stock.symbol == stock.symbol
+        return true
+      end
+    end
+    return false
+  end
 end

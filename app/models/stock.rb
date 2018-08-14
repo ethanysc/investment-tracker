@@ -4,5 +4,12 @@ class Stock < ApplicationRecord
 
   belongs_to :sector
 
-  private
+  def exists_already? (stock_check)
+    Stock.all.each do |stock|
+      if stock.symbol == stock_check.symbol
+        return true
+      end
+    end
+    return false
+  end
 end
