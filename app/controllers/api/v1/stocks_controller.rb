@@ -1,21 +1,25 @@
 class Api::V1::StocksController < ApiController
   def index
-    if(current_user)
+    if !current_user.nil?
       fetchArray = []
       stockArray = []
       current_user.stocks.each do |stock|
         parser = StockParser.new
         fetchArray << parser.get_stock(stock.symbol).first
+        current_stock = current_user.search_stock(stock)
         stockArray << {
-          price: current_user.stock_price(stock),
-          share: current_user.stock_share(stock),
-          highRange: current_user.stock_high_range(stock),
-          lowRange: current_user.stock_low_range(stock)
+          id: Stock.where(symbol: stock.symbol).first.id,
+          balance: current_user.balance,
+          monthlyContribution: current_user.monthly_contribution,
+          price: current_stock.price,
+          share: current_stock.share,
+          highRange: current_stock.high_range,
+          lowRange: current_stock.low_range
         }
       end
-      render json: { stock: fetchArray, userInfo: stockArray }
+      render json: { stocks: fetchArray, userInfo: stockArray }
     else
-      render json: current_user
+      render json: { errors: 'Please log in to view your investment portfolio'}
     end
   end
 
@@ -45,14 +49,12 @@ class Api::V1::StocksController < ApiController
     find_sector = Sector.new
     sector = find_sector.identify_sector(params[:sector])
     new_stock = Stock.new(symbol: params[:symbol], sector: sector)
-    binding.pry
+
     if current_user.nil?
       render json: { errors: "Please log in first" }
     elsif current_user.has_stock?(new_stock)
-      binding.pry
       render json: { errors: "Selected stock is already in your portfolio" }
     else
-      binding.pry
       if !new_stock.exists_already?(new_stock)
         new_stock.save
       else
@@ -70,11 +72,9 @@ class Api::V1::StocksController < ApiController
           low_range: params[:low_range]
         )
         current_user.update(balance: new_balance)
-        binding.pry
-        render json: { newStock: new_stock }
+          render json: { newStock: new_stock }
       else
-        binding.pry
-        render json: { errors: "You don't have enough balance for this purchase" }
+          render json: { errors: "You don't have enough balance for this purchase" }
       end
     end
   end

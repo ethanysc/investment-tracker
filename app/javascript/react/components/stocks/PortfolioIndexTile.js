@@ -1,0 +1,25 @@
+import React from 'react'
+import { Link } from 'react-router'
+
+const PortfolioIndexTile = (props) => {
+  let stock, userInfo = ''
+  if (props.stock){
+    stock = props.stock
+    userInfo = props.userInfo
+  }
+  return(
+    <div className='large-3 columns panel callout radius'>
+      <div>Symbol: <Link to={`/stocks/${userInfo.id}`}>{stock.symbol}</Link></div>
+      <div>Company Name: {stock.companyName}</div>
+      <div>Primary Exchange: {stock.primaryExchange}</div>
+      <div>Sector: {stock.sector}</div>
+      <div>Price: ${stock.price}</div>
+      <div>Volume: {stock.volume}</div>
+      <div>Change: ${stock.change}</div>
+      <div>Price Bought: ${userInfo.price}</div>
+      <div>Share: {userInfo.share}</div>
+    </div>
+  )
+}
+
+export default PortfolioIndexTile

@@ -29,7 +29,6 @@ class User < ApplicationRecord
   end
 
   def has_stock? (stock)
-    binding.pry
     self.stock_ownerships.each do |record|
       if record.stock.symbol == stock.symbol
         return true
