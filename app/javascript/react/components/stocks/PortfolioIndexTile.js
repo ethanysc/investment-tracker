@@ -10,8 +10,12 @@ const PortfolioIndexTile = (props) => {
   let trendIcon = ''
   if (stock.change > 0){
     trendIcon = <i className="fas fa-arrow-alt-circle-up"></i>
-  }else {
+  }
+  else if (stock.change < 0) {
     trendIcon = <i className="fas fa-arrow-alt-circle-down"></i>
+  }
+  else {
+    trendIcon = ''
   }
   return(
     <Link to={`/stocks/${userInfo.id}`}>

@@ -1,4 +1,5 @@
 class Api::V1::StocksController < ApiController
+  before_action :authenticate_user!
   def index
     if !current_user.nil?
       fetch_arry = []
