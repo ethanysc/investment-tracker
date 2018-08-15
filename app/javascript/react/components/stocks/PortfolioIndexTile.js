@@ -7,18 +7,22 @@ const PortfolioIndexTile = (props) => {
     stock = props.stock
     userInfo = props.userInfo
   }
+  let trendIcon = ''
+  if (stock.change > 0){
+    trendIcon = <i className="fas fa-arrow-alt-circle-up"></i>
+  }else {
+    trendIcon = <i className="fas fa-arrow-alt-circle-down"></i>
+  }
   return(
-    <div className='portfolio-index-tile large-3 columns panel callout radius data-equalizer-watch'>
-      <div>Symbol: <Link to={`/stocks/${userInfo.id}`}>{stock.symbol}</Link></div>
-      <div>Company Name: {stock.companyName}</div>
-      <div>Primary Exchange: {stock.primaryExchange}</div>
-      <div>Sector: {stock.sector}</div>
-      <div>Price: ${stock.latestPrice}</div>
-      <div>Volume: {stock.latestVolume}</div>
-      <div>Change: ${stock.change}</div>
-      <div>Price Bought: ${userInfo.price}</div>
-      <div>Share: {userInfo.share}</div>
-    </div>
+    <Link to={`/stocks/${userInfo.id}`}>
+      <div className='portfolio-index-tile large-3 columns panel callout radius data-equalizer-watch'>
+        <div>{stock.companyName}</div>
+        <div>{stock.symbol}</div>
+        <div>{stock.sector}</div>
+        <div>${stock.latestPrice} | {trendIcon} ${stock.change}</div>
+        <div>Shares: {userInfo.share}</div>
+      </div>
+    </Link>
   )
 }
 

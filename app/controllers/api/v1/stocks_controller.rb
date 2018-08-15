@@ -3,16 +3,17 @@ class Api::V1::StocksController < ApiController
     if !current_user.nil?
       fetch_arry = []
       stock_array = []
+      chart_array = []
       query_symbols = []
 
       current_user.stocks.each do |stock|
         query_symbols << stock.symbol
       end
       query_string = query_symbols.join(',')
-      query_string = "https://api.iextrading.com/1.0/stock/market/batch?symbols=#{query_string}&types=quote"
 
       stock_parser = StockParser.new
       fetch_array = stock_parser.get_batch(query_string, current_user.stocks)
+      line_chart_array = stock_parser.get_chart(query_string, current_user.stocks)
 
       current_user.stocks.each do |stock|
         current_stock = current_user.search_stock(stock)
@@ -26,12 +27,12 @@ class Api::V1::StocksController < ApiController
           lowRange: current_stock.low_range
         }
       end
-      pie_chart = [['Sector', 'Count']]
+      pie_chart_array = [['Sector', 'Count']]
       Sector.all.each do |sector|
-        pie_chart << [sector.sector, current_user.sector_count(sector)]
+        pie_chart_array << [sector.sector, current_user.sector_count(sector)]
       end
-      binding.pry
-      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart}
+
+      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart_array, lineChart: line_chart_array}
     else
       render json: { errors: 'Please select an option below'}
     end

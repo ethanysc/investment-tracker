@@ -2,6 +2,7 @@ import React from 'react'
 
 import PortfolioIndexTile from '../../components/stocks/PortfolioIndexTile'
 import PieChart from '../../components/charts/PieChart'
+import LineChart from '../../components/charts/LineChart'
 
 class StocksIndexContainer extends React.Component {
 
@@ -11,6 +12,7 @@ class StocksIndexContainer extends React.Component {
       stocks: [],
       userInfo: [],
       pieData: [],
+      lineData: [],
       errors: []
     }
     this.timeOfDay = this.timeOfDay.bind(this)
@@ -33,7 +35,8 @@ class StocksIndexContainer extends React.Component {
         this.setState({
           stocks: this.state.stocks.concat(body.stocks),
           userInfo: this.state.userInfo.concat(body.userInfo),
-          pieData: this.state.pieData.concat(body.pieChart)
+          pieData: this.state.pieData.concat(body.pieChart),
+          lineData: this.state.lineData.concat(body.lineChart)
         })
       }
       else {
@@ -104,8 +107,15 @@ class StocksIndexContainer extends React.Component {
       </div>
     }
 
-    let trendingChart = ''
-
+    let lineChart = ''
+    if (this.state.lineData.length > 0){
+      lineChart = <div className='line-chart large-8 columns panel callout radius'>
+        Investment Trends<br />
+      <LineChart
+           data={this.state.lineData}
+         />
+      </div>
+    }
     return(
       <div className='portfolio-index-wrapper'>
         <div className='row'>
@@ -117,9 +127,7 @@ class StocksIndexContainer extends React.Component {
           </div>
           <div className='row'>
             {pieChart}
-              <div className='investment-line-graph large-8 columns panel callout radius'>
-                Investment Line Graph
-              </div>
+            {lineChart}
           </div>
           {userInfo}
           {myStocks}

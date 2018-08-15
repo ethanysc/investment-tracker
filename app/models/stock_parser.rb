@@ -27,13 +27,35 @@ class StockParser
     @stock << stock_data
   end
 
-  def get_batch(query, stocks)
-    response = HTTParty.get(query)
+  def get_batch(symbol_string, stocks)
+    query_string = "https://api.iextrading.com/1.0/stock/market/batch?symbols=#{symbol_string}&types=quote"
+    response = HTTParty.get(query_string)
     batch_array = []
     stocks.each do |stock|
       batch_array << response[stock.symbol]["quote"]
     end
     batch_array
+  end
+
+  def get_chart(symbol_string, stocks)
+    query_string = "https://api.iextrading.com/1.0/stock/market/batch?symbols=#{symbol_string}&types=chart&range=1m"
+    response = HTTParty.get(query_string)
+    chart_array = [["Date"]]
+
+    stocks.each do |stock|
+      chart_array.first << stock.symbol
+    end
+
+    response[stocks.first.symbol]["chart"].each do |stock_data|
+      chart_array << [stock_data["date"]]
+    end
+
+    stocks.each do |stock|
+      response[stock.symbol]["chart"].each_with_index do |stock_data, index|
+          chart_array[index + 1] << stock_data["close"]
+      end
+    end
+    return chart_array
   end
 
   def get_news(symbol)

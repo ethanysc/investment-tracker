@@ -37,8 +37,9 @@ svg {
     padding-top: 20px !important;
 }
 
-.investment-line-graph {
-  background-color: #0B3148;
+.line-chart {
+  color: #F3F5F6;
+  font-size: 24px;
 }
 
 .greetings {
@@ -84,6 +85,21 @@ svg {
   width: 150px;
 }
 
-/* .columns {
+.stocks-list {
   text-align: center;
+  font-size: 24px;
+}
+
+.portfolio-index-tile {
+  padding-top: 50px !important;
+  text-align: center;
+  font-size: 24px;
+}
+
+.fa-arrow-alt-circle-up {
+  color: #1E7C86;
+}
+
+.fa-arrow-alt-circle-down {
+  color: #EE4447;
 }
