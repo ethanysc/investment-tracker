@@ -101,9 +101,7 @@ class StocksIndexContainer extends React.Component {
     if (this.state.pieData.length > 0){
       pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
         My Investment Diversification<br />
-        <PieChart
-           data={this.state.pieData}
-         />
+      <PieChart data={this.state.pieData} />
       </div>
     }
 
@@ -111,9 +109,7 @@ class StocksIndexContainer extends React.Component {
     if (this.state.lineData.length > 0){
       lineChart = <div className='line-chart large-8 columns panel callout radius'>
         Investment Trends<br />
-      <LineChart
-           data={this.state.lineData}
-         />
+      <LineChart data={this.state.lineData} />
       </div>
     }
     return(

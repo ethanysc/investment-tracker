@@ -8,7 +8,8 @@ class StockShowContainer extends React.Component {
     this.state = {
       stock: null,
       userInfo: null,
-      stats: null
+      stats: null,
+      lineData: []
     }
   }
 
@@ -28,7 +29,8 @@ class StockShowContainer extends React.Component {
         this.setState({
           stock: body.stock,
           userInfo: body.userInfo,
-          stats: body.stats
+          stats: body.stats,
+          lineData: body.lineChart
         })
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -38,10 +40,11 @@ class StockShowContainer extends React.Component {
     let stock = ''
     if (this.state.stock){
       stock = <StockShowTile
-                id={this.state.stock.id}
+                id={this.props.params.id}
                 stock={this.state.stock}
                 userInfo={this.state.userInfo}
                 stats={this.state.stats}
+                data={this.state.lineData}
               />
     }
     else{
