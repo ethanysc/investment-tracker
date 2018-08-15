@@ -19,7 +19,7 @@ const PortfolioIndexTile = (props) => {
         <div>{stock.companyName}</div>
         <div>{stock.symbol}</div>
         <div>{stock.sector}</div>
-        <div>${stock.latestPrice} | {trendIcon} ${stock.change}</div>
+        <div>${stock.latestPrice}  |  {trendIcon} ${stock.change}</div>
         <div>Shares: {userInfo.share}</div>
       </div>
     </Link>
