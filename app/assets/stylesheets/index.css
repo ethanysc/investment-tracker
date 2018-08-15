@@ -8,6 +8,10 @@ tabs {
   font-size: 18px;
 }
 
+.stock-index-symbol{
+  font-size: 22px;
+}
+
 .new-stock-label {
   color: #333;
   font-size: 18px;
@@ -15,9 +19,15 @@ tabs {
 }
 
 .new-stock-input{
-  width: 50px;
+  width: 200px !important;
+  margin-left: 120px !important;
+  text-align: center;
 }
 
 .tabs{
   margin-left: 0px;
+}
+
+.add-slider {
+  margin-left: 59px;
 }

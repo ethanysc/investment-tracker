@@ -10,9 +10,9 @@ const StocksIndexTile = props => {
     errorMsg = <div>{props.errors[0]}</div>
   }
   return(
-    <div className=' stock-index-tile large-3 columns panel callout radius'>
+    <div className='stock-index-tile large-3 columns panel callout radius'>
+      <div className='stock-index-symbol'>{stock.symbol}</div>
       <div>{stock.companyName}</div>
-      <div>{stock.symbol}</div>
       <div>{stock.sector}</div>
       <div>High: ${stock.high}</div>
       <div>Low: ${stock.low}</div>

@@ -118,10 +118,10 @@ class AllStocksContainer extends React.Component {
 
     return(
       <div className="stock-index wrapper data-equalizer">
+        <h1 className='stock-index header'>List of Stocks</h1>
         <div className="row data-equalizer-watch">
           <div className='columns small-10 small-centered'>
-            <h1 className='stock-index header'>List of Stocks</h1>
-            <ul className="tabs center" data-tab>
+            <ul className="tabs small-centered sector-tabs" data-tab>
               <li className="tab-title active" onClick={handleCategories} name='Financials'><a href="#panel1">Financials</a></li>
               <li className="tab-title" onClick={handleCategories} name='Technology'><a href="#panel1">Technology</a></li>
               <li className="tab-title" onClick={handleCategories} name='Health%20Care'><a href="#panel1">Healthcare</a></li>

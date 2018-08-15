@@ -56,7 +56,9 @@ class EditStockFormContainer extends React.Component{
                     allowCross={false}
                     onChange={value => this.setState({ range: [value[0], value[1]] })}
                     tipFormatter={value => `$${value}`}
-                    name='range' />
+                    name='range'
+                    className='edit-slider'
+              />
               </div>
         <button type='submit' className='edit-button radius'>Edit Range</button>
         <button className='delete-button radius' onClick={this.handleDelete}>Sell Shares</button>

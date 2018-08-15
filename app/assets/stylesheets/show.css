@@ -3,3 +3,20 @@
   font-size: 18px;
   text-align: center;
 }
+
+.edit-stock-form {
+  text-align: center;
+}
+
+.edit-slider {
+  margin-left: 305px;
+}
+
+.edit-button {
+  margin-right: 25px;
+}
+
+.news-panel, .review-panel {
+  height: 700px;
+  text-align: center;
+}

@@ -107,12 +107,13 @@ const StockShowTile = (props) => {
         </div>
       </div>
       <div className='row'>
-        <div className='panel callout radius columns small-6'>
+        <div className='news-panel panel callout radius columns small-6'>
           <h1>Most Recent Stock News</h1>
           {news}
         </div>
-
-
+        <div className='review-panel panel callout radius columns small-6'>
+          Reviews and Review Form Here
+        </div>
       </div>
 
     </div>

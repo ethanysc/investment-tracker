@@ -61,7 +61,8 @@ class NewStockFormContainer extends React.Component{
                     allowCross={false}
                     onChange={value => this.setState({ range: [value[0], value[1]] })}
                     tipFormatter={value => `$${value}`}
-                    name='range' />
+                    name='range'
+                    className='add-slider' />
               </div>
         <button type='submit' className='button radius'>Add to List</button>
       </form>
