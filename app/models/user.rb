@@ -29,7 +29,6 @@ class User < ApplicationRecord
   end
 
   def has_stock? (stock)
-    binding.pry
     self.stock_ownerships.each do |record|
       if record.stock.symbol == stock.symbol
         return true
@@ -37,4 +36,19 @@ class User < ApplicationRecord
     end
     return false
   end
+
+  def sector_count (sector)
+    count = 0
+    self.stock_ownerships.each do |record|
+      if record.stock.sector == sector
+        count += 1
+      end
+    end
+    return count
+  end
+
+  # def update_monthly_balance
+  #   today = Time.new
+  #   if today.day
+  # end
 end

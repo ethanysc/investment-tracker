@@ -1,13 +1,18 @@
 import React from 'react'
 
-import StocksIndexTile from '../../components/stocks/StocksIndexTile'
+import PortfolioIndexTile from '../../components/stocks/PortfolioIndexTile'
+import PieChart from '../../components/charts/PieChart'
+import LineChart from '../../components/charts/LineChart'
 
 class StocksIndexContainer extends React.Component {
 
   constructor(props){
     super(props)
     this.state = {
-      myStocks: [],
+      stocks: [],
+      userInfo: [],
+      pieData: [],
+      lineData: [],
       errors: []
     }
     this.timeOfDay = this.timeOfDay.bind(this)
@@ -26,11 +31,16 @@ class StocksIndexContainer extends React.Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (body){
-        this.setState({ myStocks: body })
+      if (!body.errors){
+        this.setState({
+          stocks: this.state.stocks.concat(body.stocks),
+          userInfo: this.state.userInfo.concat(body.userInfo),
+          pieData: this.state.pieData.concat(body.pieChart),
+          lineData: this.state.lineData.concat(body.lineChart)
+        })
       }
       else {
-        this.setState({ errors: this.state.errors.concat(body) })
+        this.setState({ errors: this.state.errors.concat(body.errors) })
       }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -50,27 +60,81 @@ class StocksIndexContainer extends React.Component {
   }
 
   render(){
-    let myStocks = ''
-    if (this.state.myStocks.length > 0) {
-      myStocks = this.state.myStocks.map((stock) => {
-        return(
-          <StocksIndexTile
-            key={stock.symbol}
-            stock={stock}
-          />
-        )
-      })
-    }
-    return(
-      <div className='porfolio-index-wrapper row'>
-        <div className='columns'>
-          <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
-          <div className='distribution-chart'>Distribution Chart</div>
-          <div className='investment-line-graph'>Investment Line Graph</div>
-          <div className='stocks-list'>List of Stock Investments</div>
-          {myStocks}
+    let myStocks, userInfo = ''
+    if (this.state.stocks.length > 0) {
+      userInfo = <div className='stocks-list row panel callout radius'>
+        <div className='columns small-10 small-centered'>
+          Current Balance: ${this.state.userInfo[0].balance} <br/>
+          Monthly Contribution: ${this.state.userInfo[0].monthlyContribution} <br/>
         </div>
       </div>
+      let stocks = this.state.stocks.map((stock, index) => {
+          return(
+            <PortfolioIndexTile
+              key={stock.id}
+              stock={stock}
+              userInfo={this.state.userInfo[index]}
+            />
+          )
+        })
+      myStocks = <div>
+        <div className='stocks-list row panel callout radius'>
+          <div className='columns small-10 small-centered'>
+            List of Stock Investments
+          </div>
+        </div><div className='row'>{stocks}</div>
+      </div>
+    }
+
+    let errors = ''
+    if (this.state.errors.length > 0){
+      errors = <div className='row'>
+        <div className='log-in columns small-12 small-centered'>
+          {this.state.errors[0]}<br />
+        <button className='log-in-btn radius'><a href='/users/sign_in'>Log In</a></button>
+        <button className='sign-up-btn radius'><a href='/users/sign_up'>Sign Up</a></button>
+        </div>
+      </div>
+    }
+
+    let pieChart = ''
+    if (this.state.pieData.length > 0){
+      pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
+        My Investment Diversification<br />
+        <PieChart
+           data={this.state.pieData}
+         />
+      </div>
+    }
+
+    let lineChart = ''
+    if (this.state.lineData.length > 0){
+      lineChart = <div className='line-chart large-8 columns panel callout radius'>
+        Investment Trends<br />
+      <LineChart
+           data={this.state.lineData}
+         />
+      </div>
+    }
+    return(
+      <div className='portfolio-index-wrapper'>
+        <div className='row'>
+          <div className='columns small-10 small-centered'>
+          <div className='row'>
+            <div className='greetings columns small-12 small-centered'>
+              <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
+            </div>
+          </div>
+          <div className='row'>
+            {pieChart}
+            {lineChart}
+          </div>
+          {userInfo}
+          {myStocks}
+          {errors}
+      </div>
+    </div>
+  </div>
     )
   }
 }

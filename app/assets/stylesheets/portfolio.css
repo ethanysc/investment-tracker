@@ -1,0 +1,111 @@
+body {
+  background-color: #07273A;
+  color: #F3F5F6;
+  font-size: 100%
+}
+
+h1 {
+  color: #F3F5F6;
+  text-align: center;
+}
+
+
+h2 {
+  color: #F3F5F6;
+  text-align: center;
+}
+
+.top-bar {
+  height: 50px;
+}
+
+.title-area a {
+  font-size: 24px !important;
+}
+
+.top-bar-section li {
+  font-size: 24px !important;
+}
+
+.portfolio-index-wrapper {
+  background-color: #07273A;
+}
+
+.distribution-chart {
+  color: #F3F5F6;
+  background-color: #0B3148;
+  font-size: 24px;
+  text-align: center;
+}
+
+svg {
+    padding-top: 20px !important;
+}
+
+.line-chart {
+  color: #F3F5F6;
+  font-size: 24px;
+  text-align: center;
+}
+
+.greetings {
+  height: 500px;
+  width: 100%;
+  text-align: center;
+  background-color: #258790;
+  padding-top: 225px;
+  padding-bottom: 225px;
+}
+
+.field {
+  color: #F3F5F6;
+}
+
+.portfolio-index-tile{
+  height: 300px;
+}
+
+.log-in{
+  height: 250px;
+  width: 100%;
+  text-align: center;
+  background-color: #175682;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.log-in-btn {
+  background-color: #0d3048;
+  color: #F3F5F6;
+  margin-top: 25px;
+  margin-right: 25px;
+  width: 150px;
+}
+
+.sign-up-btn {
+  background-color: #0d3048;
+  color: #F3F5F6;
+  margin-top: 25px;
+  width: 150px;
+}
+
+.stocks-list {
+  text-align: center;
+  font-size: 24px;
+}
+
+.portfolio-index-tile {
+  padding-top: 50px !important;
+  text-align: center;
+  font-size: 24px;
+}
+
+.fa-arrow-alt-circle-up {
+  color: #1E7C86;
+}
+
+.fa-arrow-alt-circle-down {
+  color: #EE4447;
+}

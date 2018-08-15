@@ -1,21 +1,40 @@
 class Api::V1::StocksController < ApiController
   def index
-    if(current_user)
-      fetchArray = []
-      stockArray = []
+    if !current_user.nil?
+      fetch_arry = []
+      stock_array = []
+      chart_array = []
+      query_symbols = []
+
       current_user.stocks.each do |stock|
-        parser = StockParser.new
-        fetchArray << parser.get_stock(stock.symbol).first
-        stockArray << {
-          price: current_user.stock_price(stock),
-          share: current_user.stock_share(stock),
-          highRange: current_user.stock_high_range(stock),
-          lowRange: current_user.stock_low_range(stock)
+        query_symbols << stock.symbol
+      end
+      query_string = query_symbols.join(',')
+
+      stock_parser = StockParser.new
+      fetch_array = stock_parser.get_batch(query_string, current_user.stocks)
+      line_chart_array = stock_parser.get_chart(query_string, current_user.stocks)
+
+      current_user.stocks.each do |stock|
+        current_stock = current_user.search_stock(stock)
+        stock_array << {
+          id: stock.id,
+          balance: current_user.balance,
+          monthlyContribution: current_user.monthly_contribution,
+          price: current_stock.price,
+          share: current_stock.share,
+          highRange: current_stock.high_range,
+          lowRange: current_stock.low_range
         }
       end
-      render json: { stock: fetchArray, userInfo: stockArray }
+      pie_chart_array = [['Sector', 'Count']]
+      Sector.all.each do |sector|
+        pie_chart_array << [sector.sector, current_user.sector_count(sector)]
+      end
+
+      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart_array, lineChart: line_chart_array}
     else
-      render json: current_user
+      render json: { errors: 'Please select an option below'}
     end
   end
 
@@ -35,9 +54,10 @@ class Api::V1::StocksController < ApiController
     stock_news = parser.get_news(stock.symbol)
     stats_obj = {
       profit: (fetch_obj[:price] - stock_obj[:price]) * stock_obj[:share],
-      profitPercent: (fetch_obj[:price] - stock_obj[:price]) / stock_obj[:price] * 100,
+      profitPercent: "%.2f" % ((fetch_obj[:price] - stock_obj[:price]) / stock_obj[:price] * 100),
       news: stock_news
     }
+
     render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj }
   end
 
@@ -45,14 +65,12 @@ class Api::V1::StocksController < ApiController
     find_sector = Sector.new
     sector = find_sector.identify_sector(params[:sector])
     new_stock = Stock.new(symbol: params[:symbol], sector: sector)
-    binding.pry
+
     if current_user.nil?
       render json: { errors: "Please log in first" }
     elsif current_user.has_stock?(new_stock)
-      binding.pry
       render json: { errors: "Selected stock is already in your portfolio" }
     else
-      binding.pry
       if !new_stock.exists_already?(new_stock)
         new_stock.save
       else
@@ -70,11 +88,9 @@ class Api::V1::StocksController < ApiController
           low_range: params[:low_range]
         )
         current_user.update(balance: new_balance)
-        binding.pry
-        render json: { newStock: new_stock }
+          render json: { newStock: new_stock }
       else
-        binding.pry
-        render json: { errors: "You don't have enough balance for this purchase" }
+          render json: { errors: "You don't have enough balance for this purchase" }
       end
     end
   end
