@@ -1,0 +1,23 @@
+tabs {
+  margin: 0px 0px;
+}
+
+.stock-index-tile {
+  height: 550px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.new-stock-label {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.new-stock-input{
+  width: 50px;
+}
+
+.tabs{
+  margin-left: 0px;
+}

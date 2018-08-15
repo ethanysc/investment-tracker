@@ -5,7 +5,7 @@ import '!style-loader!css-loader!rc-slider/assets/index.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
-const wrapperStyle = { width: 400, margin: 50 }
+const wrapperStyle = { width: 300, margin: 20 }
 
 class NewStockFormContainer extends React.Component{
   constructor(props){
@@ -50,20 +50,20 @@ class NewStockFormContainer extends React.Component{
     let range = this.state.range
 
     return(
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor='share'>Number of Shares:</label>
-        <input type='number' name='share' onChange={this.handleChange}/>
-        <div style={wrapperStyle}>
-          <p>Set your acceptable investment range:</p>
-            <Range min={Math.floor(stock.low - 10)}
-                  max={Math.floor(stock.high + 10)}
-                  defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
-                  allowCross={false}
-                  onChange={value => this.setState({ range: [value[0], value[1]] })}
-                  tipFormatter={value => `$${value}`}
-                  name='range' />
-        </div>
-        <button type='submit' className='button'>Add to List</button>
+      <form className='new-stock-form' onSubmit={this.handleSubmit}>
+        <label className='new-stock-label' htmlFor='share'>Number of Shares:</label>
+        <input className='new-stock-input' type='number' name='share' onChange={this.handleChange}/>
+          <div>Set your acceptable investment range:</div>
+            <div style={wrapperStyle}>
+              <Range min={Math.floor(stock.low - 10)}
+                    max={Math.floor(stock.high + 10)}
+                    defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
+                    allowCross={false}
+                    onChange={value => this.setState({ range: [value[0], value[1]] })}
+                    tipFormatter={value => `$${value}`}
+                    name='range' />
+              </div>
+        <button type='submit' className='button radius'>Add to List</button>
       </form>
     )
   }

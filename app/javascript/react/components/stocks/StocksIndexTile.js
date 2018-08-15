@@ -10,18 +10,15 @@ const StocksIndexTile = props => {
     errorMsg = <div>{props.errors[0]}</div>
   }
   return(
-    <div className='large-3 columns panel callout radius'>
-      <div>Symbol: {stock.symbol}</div>
-      <div>Company Name: {stock.companyName}</div>
-      <div>Primary Exchange: {stock.primaryExchange}</div>
-      <div>Sector: {stock.sector}</div>
-      <div>Open: ${stock.open}</div>
-      <div>Close: ${stock.close}</div>
+    <div className=' stock-index-tile large-3 columns panel callout radius'>
+      <div>{stock.companyName}</div>
+      <div>{stock.symbol}</div>
+      <div>{stock.sector}</div>
       <div>High: ${stock.high}</div>
       <div>Low: ${stock.low}</div>
       <div>Price: ${stock.latestPrice}</div>
       <div>Volume: {stock.latestVolume}</div>
-      <div>Change: {stock.change}</div>
+      <div>Change: ${stock.change}</div>
       <div>Change %: {stock.changePercent}%</div>
       <NewStockFormContainer
         stock={stock}
