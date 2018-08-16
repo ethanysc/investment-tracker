@@ -64,14 +64,14 @@ class StocksIndexContainer extends React.Component {
     if (this.state.stocks.length > 0) {
       userInfo = <div className='stocks-list row panel callout radius'>
         <div className='columns small-10 small-centered'>
-          Current Balance: ${this.state.userInfo[0].balance} <br/>
-          Monthly Contribution: ${this.state.userInfo[0].monthlyContribution} <br/>
+          Current Balance: ${Math.round(this.state.userInfo[0].balance * 100) / 100} <br/>
+          Monthly Contribution: ${parseFloat(this.state.userInfo[0].monthlyContribution).toFixed(2)} <br/>
         </div>
       </div>
       let stocks = this.state.stocks.map((stock, index) => {
           return(
             <PortfolioIndexTile
-              key={stock.id}
+              key={stock.symbol}
               stock={stock}
               userInfo={this.state.userInfo[index]}
             />
@@ -82,7 +82,7 @@ class StocksIndexContainer extends React.Component {
           <div className='columns small-10 small-centered'>
             List of Stock Investments
           </div>
-        </div><div className='row'>{stocks}</div>
+        </div><div className='row' data-equalizer>{stocks}</div>
       </div>
     }
 
@@ -101,9 +101,7 @@ class StocksIndexContainer extends React.Component {
     if (this.state.pieData.length > 0){
       pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
         My Investment Diversification<br />
-        <PieChart
-           data={this.state.pieData}
-         />
+      <PieChart data={this.state.pieData} />
       </div>
     }
 
@@ -111,9 +109,7 @@ class StocksIndexContainer extends React.Component {
     if (this.state.lineData.length > 0){
       lineChart = <div className='line-chart large-8 columns panel callout radius'>
         Investment Trends<br />
-      <LineChart
-           data={this.state.lineData}
-         />
+      <LineChart data={this.state.lineData} />
       </div>
     }
     return(
@@ -121,7 +117,7 @@ class StocksIndexContainer extends React.Component {
         <div className='row'>
           <div className='columns small-10 small-centered'>
           <div className='row'>
-            <div className='greetings columns small-12 small-centered'>
+            <div className='greetings columns small-12 small-centered radius'>
               <h1>{this.timeOfDay()}Welcome to InvestmentTracker</h1>
             </div>
           </div>

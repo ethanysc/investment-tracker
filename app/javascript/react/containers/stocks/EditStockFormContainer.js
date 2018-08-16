@@ -7,7 +7,7 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
 const wrapperStyle = { width: 300, margin: 20 }
 
-class NewStockFormContainer extends React.Component{
+class EditStockFormContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
@@ -16,47 +16,40 @@ class NewStockFormContainer extends React.Component{
       share: 0
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSubmit = (event) => {
+  handleEdit = (event) => {
     event.preventDefault()
     let formatPayload = {
-      symbol: this.state.stock.symbol,
-      company_name: this.state.stock.companyName,
-      primary_exchange: this.state.stock.primaryExchange,
-      sector: this.state.stock.sector,
-      open: this.state.stock.open,
-      close: this.state.stock.close,
-      high: this.state.stock.high,
-      low: this.state.stock.low,
-      price: this.state.stock.latestPrice,
-      volume: this.state.stock.latestVolume,
-      change: this.state.stock.change,
-      change_percent: this.state.stock.changePercent,
-      low_range: this.state.range[0],
-      high_range: this.state.range[1],
-      share: this.state.share
+      stock: this.state.stock,
+      range: this.state.range
     }
-    this.props.handleClick(formatPayload)
+    this.props.handleEdit(formatPayload)
   }
+
+  handleDelete = (event) => {
+    event.preventDefault()
+    let formatPayload = {
+      symbol:this.state.stock.symbol
+    }
+    this.props.handleDelete(formatPayload)
+  }
+
   render(){
 
     let stock = this.state.stock
     let range = this.state.range
 
     return(
-      <form className='new-stock-form' onSubmit={this.handleSubmit}>
-        <label className='new-stock-label' htmlFor='share'>Number of Shares:</label>
-        <div className='share-input'>
-          <input type='number' name='share' onChange={this.handleChange}/>
-        </div>
+      <form className='edit-stock-form' onSubmit={this.handleEdit}>
           <div>Set your acceptable investment range:</div>
-            <div style={wrapperStyle} className='add-slider'>
+            <div style={wrapperStyle}>
               <Range min={Math.floor(stock.low - 10)}
                     max={Math.floor(stock.high + 10)}
                     defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
@@ -64,12 +57,14 @@ class NewStockFormContainer extends React.Component{
                     onChange={value => this.setState({ range: [value[0], value[1]] })}
                     tipFormatter={value => `$${value}`}
                     name='range'
-                    />
+                    className='edit-slider'
+              />
               </div>
-        <button type='submit' className='button radius'>Add to List</button>
+        <button type='submit' className='edit-button radius'>Edit Range</button>
+        <button className='delete-button radius' onClick={this.handleDelete}>Sell Shares</button>
       </form>
     )
   }
 }
 
-export default NewStockFormContainer
+export default EditStockFormContainer

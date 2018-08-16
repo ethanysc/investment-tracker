@@ -58,7 +58,11 @@ class Api::V1::StocksController < ApiController
       news: stock_news
     }
 
-    render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj }
+    array_stock = []
+    array_stock << stock
+    line_chart_array = parser.get_chart(stock.symbol, array_stock)
+
+    render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj, lineChart: line_chart_array }
   end
 
   def create
@@ -93,5 +97,22 @@ class Api::V1::StocksController < ApiController
           render json: { errors: "You don't have enough balance for this purchase" }
       end
     end
+  end
+
+  def update
+    stock_record = StockOwnership.where(user: current_user, stock: Stock.where(symbol: params["stock"]["symbol"]))
+    stock_record.update(high_range: params[:range].last, low_range: params[:range].first)
+    render json: { id: stock_record.stock_id }
+  end
+
+  def destroy
+    stock = Stock.find(params[:id])
+    stock_record = StockOwnership.where(user: current_user, stock: stock).first
+    current_stock = StockParser.new
+    api_stock = current_stock.get_stock(stock.symbol).first
+    current_user.update(balance: "%.2f" % (current_user.balance + api_stock[:price] * stock_record.share))
+
+    stock_record.destroy
+    render json: { errors: 'Stock sold' }
   end
 end

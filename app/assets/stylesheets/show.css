@@ -1,0 +1,27 @@
+.stock-title, .show-chart {
+  box-shadow: 7px 6px 0px #adadad;
+}
+
+.stock-show-panel, .investment-show-panel {
+  height: 400px;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 7px 6px 0px #adadad;
+}
+
+.edit-stock-form {
+  text-align: center;
+}
+
+.edit-slider {
+  margin-left: 305px;
+}
+
+.edit-button {
+  margin-right: 25px;
+}
+
+.news-panel, .review-panel {
+  text-align: center;
+  box-shadow: 7px 6px 0px #adadad;
+}
