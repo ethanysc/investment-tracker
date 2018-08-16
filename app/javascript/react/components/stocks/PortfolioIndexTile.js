@@ -1,33 +1,63 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const PortfolioIndexTile = (props) => {
-  let stock, userInfo = ''
-  if (props.stock){
-    stock = props.stock
-    userInfo = props.userInfo
+class PortfolioIndexTile extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      stock: this.props.stock,
+      userInfo: this.props.userInfo,
+      hover: false
+    }
+    this.onHover = this.onHover.bind(this)
+    this.offHover = this.offHover.bind(this)
   }
-  let trendIcon = ''
-  if (stock.change > 0){
-    trendIcon = <i className="fas fa-arrow-alt-circle-up"></i>
+
+  onHover(){
+    this.setState({ hover: true })
   }
-  else if (stock.change < 0) {
-    trendIcon = <i className="fas fa-arrow-alt-circle-down"></i>
+
+  offHover(){
+    this.setState({ hover: false })
   }
-  else {
-    trendIcon = ''
-  }
-  return(
-    <Link to={`/stocks/${userInfo.id}`}>
-      <div className='portfolio-index-tile large-3 columns panel callout radius data-equalizer-watch'>
-        <div>{stock.companyName}</div>
-        <div>{stock.symbol}</div>
-        <div>{stock.sector}</div>
-        <div>${stock.latestPrice}  |  {trendIcon} ${stock.change}</div>
-        <div>Shares: {userInfo.share}</div>
+
+  render(){
+    let stock, userInfo = ''
+    if (this.state.stock){
+      stock = this.state.stock
+      userInfo = this.state.userInfo
+    }
+    let trendIcon = ''
+    if (stock.change > 0){
+      trendIcon = <i className="fas fa-arrow-alt-circle-up"></i>
+    }
+    else if (stock.change < 0) {
+      trendIcon = <i className="fas fa-arrow-alt-circle-down"></i>
+    }
+    else {
+      trendIcon = ''
+    }
+
+    let divClass = 'portfolio-index-tile large-3 columns panel callout radius'
+    if (this.state.hover){
+      divClass = 'hover-index-tile large-3 columns panel callout radius'
+    }
+
+    return(
+      <div>
+        <Link to={`/stocks/${userInfo.id}`}>
+          <div className={divClass} onMouseOver={ this.onHover } onMouseOut={ this.offHover } data-equalizer-watch>
+            <div>{stock.companyName}</div>
+            <div>{stock.symbol}</div>
+            <div>{stock.sector}</div>
+            <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
+            <div>Shares: {userInfo.share}</div>
+          </div>
+        </Link>
       </div>
-    </Link>
-  )
+
+    )
+  }
 }
 
 export default PortfolioIndexTile

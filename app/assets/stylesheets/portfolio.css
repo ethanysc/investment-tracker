@@ -56,9 +56,26 @@ h2 {
 .field {
   color: #F3F5F6, impor;
 }
+/*
+.hover-div .hover-div--on,
+.hover-div:hover .hover-div--off {
+  display: none;
+}
 
-.portfolio-index-tile{
-  height: 300px;
+.hover-div:hover .hover-div--on {
+  display: inline;
+  background-color: #07273A;
+  color: #F3F5F6;
+} */
+
+.hover-index-tile {
+  text-align: center;
+  font-size: 24px;
+  margin: auto auto !important;
+  background-color: #07273A !important;
+  color: #F3F5F6 !important;
+  border-width: thin !important;
+  border-color: #E6D752 !important;
 }
 
 .log-in{
@@ -90,12 +107,13 @@ h2 {
 .stocks-list {
   text-align: center;
   font-size: 24px;
+  box-shadow: 7px 6px 0px #adadad;
 }
 
 .portfolio-index-tile {
-  padding-top: 50px !important;
   text-align: center;
   font-size: 24px;
+  box-shadow: 7px 6px 0px #adadad;
 }
 
 .fa-arrow-alt-circle-up {

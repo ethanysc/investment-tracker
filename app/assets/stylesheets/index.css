@@ -1,15 +1,12 @@
-tabs {
-  margin: 0px 0px;
-}
-
 .stock-index-tile {
-  height: 550px;
+  height: 600px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
+  box-shadow: 7px 6px 0px #adadad;
 }
 
 .stock-index-symbol{
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .new-stock-label {
@@ -24,10 +21,30 @@ tabs {
   text-align: center;
 }
 
+.share-input {
+  margin: 0 auto
+}
+
 .tabs{
-  margin-left: 0px;
+  box-shadow: 7px 6px 0px #adadad;
 }
 
 .add-slider {
-  margin-left: 59px;
+  margin: 20px auto !important;
+}
+
+.tab-title {
+  width: 14.27%;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  height: auto;
+}
+
+.tabs dd > a, .tabs .tab-title > a {
+  height: 115px;
+}
+
+.one-line-tab > a {
+  padding: 45px !important;
 }

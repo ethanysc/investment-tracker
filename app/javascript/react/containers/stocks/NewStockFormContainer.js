@@ -52,9 +52,11 @@ class NewStockFormContainer extends React.Component{
     return(
       <form className='new-stock-form' onSubmit={this.handleSubmit}>
         <label className='new-stock-label' htmlFor='share'>Number of Shares:</label>
-        <input className='new-stock-input' type='number' name='share' onChange={this.handleChange}/>
+        <div className='share-input'>
+          <input type='number' name='share' onChange={this.handleChange}/>
+        </div>
           <div>Set your acceptable investment range:</div>
-            <div style={wrapperStyle}>
+            <div style={wrapperStyle} className='add-slider'>
               <Range min={Math.floor(stock.low - 10)}
                     max={Math.floor(stock.high + 10)}
                     defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
@@ -62,7 +64,7 @@ class NewStockFormContainer extends React.Component{
                     onChange={value => this.setState({ range: [value[0], value[1]] })}
                     tipFormatter={value => `$${value}`}
                     name='range'
-                    className='add-slider' />
+                    />
               </div>
         <button type='submit' className='button radius'>Add to List</button>
       </form>
