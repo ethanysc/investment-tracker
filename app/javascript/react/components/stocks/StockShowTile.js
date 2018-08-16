@@ -3,6 +3,8 @@ import { browserHistory } from 'react-router'
 import LineChart from '../charts/LineChart'
 
 import EditStockFormContainer from '../../containers/stocks/EditStockFormContainer'
+import ReviewTileContainer from '../../containers/reviews/ReviewTileContainer'
+import ReviewFormContainer from '../../containers/reviews/ReviewFormContainer'
 
 const StockShowTile = (props) => {
   let stock = props.stock
@@ -65,6 +67,21 @@ const StockShowTile = (props) => {
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  let reviews = props.reviews.map((review) => {
+    let handleReviewDelete = () => {
+      props.deleteReview(review.id)
+    }
+    return(
+      <ReviewTileContainer
+        key={review.id}
+        id={review.id}
+        stockId={props.id}
+        review={review}
+        handleDelete={handleReviewDelete}
+      />
+    )
+  })
+
   return(
     <div>
       <h1 className='stock-title panel callout radius row colums small-12'>
@@ -112,7 +129,11 @@ const StockShowTile = (props) => {
           {news}
         </div>
         <div className='review-panel panel callout radius columns small-6' data-equalizer-watch>
-          Reviews and Review Form Here
+          <h1>Reviews & Comments</h1>
+          {reviews}
+          <ReviewFormContainer
+
+          />
         </div>
       </div>
 
