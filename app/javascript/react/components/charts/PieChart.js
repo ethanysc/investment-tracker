@@ -23,7 +23,7 @@ const pieOptions = {
     left: 0,
     top: 0,
     width: "100%",
-    height: "80%"
+    height: "100%"
   },
   pieSliceTextStyle: {
     fontSize: 20
@@ -44,7 +44,7 @@ class PieChart extends React.Component{
           data={this.props.data}
           options={pieOptions}
           graph_id='PieChart'
-          width="100%"
+          width="600px"
           height="500px"
           legend_toggle
         />

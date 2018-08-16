@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :stock_ownerships
   has_many :stocks, through: :stock_ownerships
+  has_many :reviews
 
   attr_writer :login
 

@@ -32,7 +32,7 @@ class Api::V1::StocksController < ApiController
         pie_chart_array << [sector.sector, current_user.sector_count(sector)]
       end
 
-      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart_array, lineChart: line_chart_array}
+      render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart_array, lineChart: line_chart_array }
     else
       render json: { errors: 'Please select an option below'}
     end
@@ -45,6 +45,7 @@ class Api::V1::StocksController < ApiController
 
     user_stock = current_user.search_stock(stock)
     stock_obj = {
+      id: user_stock.stock_id,
       price: user_stock.price,
       share: user_stock.share,
       highRange: user_stock.high_range,
@@ -62,7 +63,13 @@ class Api::V1::StocksController < ApiController
     array_stock << stock
     line_chart_array = parser.get_chart(stock.symbol, array_stock)
 
-    render json: { stock: fetch_obj, userInfo: stock_obj, stats: stats_obj, lineChart: line_chart_array }
+    render json: {
+      stock: fetch_obj,
+      userInfo: stock_obj,
+      stats: stats_obj,
+      lineChart: line_chart_array,
+      reviews: serialized_reviews
+    }
   end
 
   def create
@@ -114,5 +121,9 @@ class Api::V1::StocksController < ApiController
 
     stock_record.destroy
     render json: { errors: 'Stock sold' }
+  end
+
+  def serialized_reviews
+    ActiveModel::Serializer::ArraySerializer.new(Stock.find(params[:id]).reviews, each_serializer: ReviewSerializer)
   end
 end
