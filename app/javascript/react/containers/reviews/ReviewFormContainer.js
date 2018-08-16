@@ -20,9 +20,10 @@ class ReviewFormContainer extends React.Component {
     event.preventDefault()
 
     let newReview = {
-      body: this.state.body
+      body: this.state.body,
+      stock_id: this.props.stockId
     }
-    this.props.addReview(newReview)
+    this.props.handleAdd(newReview)
     this.handleClear()
   }
 

@@ -12,6 +12,7 @@ class StockShowContainer extends React.Component {
       lineData: [],
       reviews: []
     }
+    this.addReview = this.addReview.bind(this)
     this.deleteReview = this.deleteReview.bind(this)
   }
 
@@ -37,6 +38,35 @@ class StockShowContainer extends React.Component {
         })
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }
+
+  addReview = (payload) => {
+    fetch(`/api/v1/reviews.json`, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json',
+      'X-Requested-With': 'XHMLttpRequest' },
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+      .then(response => {
+        if(response.ok){
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage)
+              if(response.status == 401){
+                alert("You must be signed in to leave reviews!!!")
+              }
+          throw(error)
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        if(body.review){
+          this.setState({ reviews: this.state.reviews.concat(body.review) })
+        }
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   deleteReview = (reviewId) => {
@@ -75,6 +105,7 @@ class StockShowContainer extends React.Component {
                 stats={this.state.stats}
                 data={this.state.lineData}
                 reviews={this.state.reviews}
+                addReview={this.addReview}
                 deleteReview={this.deleteReview}
               />
     }

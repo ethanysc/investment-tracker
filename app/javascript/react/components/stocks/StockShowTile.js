@@ -132,7 +132,8 @@ const StockShowTile = (props) => {
           <h1>Reviews & Comments</h1>
           {reviews}
           <ReviewFormContainer
-
+            stockId={props.id}
+            handleAdd={props.addReview}
           />
         </div>
       </div>

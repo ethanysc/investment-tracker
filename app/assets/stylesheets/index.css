@@ -27,6 +27,8 @@
 
 .tabs{
   box-shadow: 7px 6px 0px #adadad;
+  border-radius: 5px;
+  width: 101%;
 }
 
 .add-slider {
@@ -36,15 +38,28 @@
 .tab-title {
   width: 14.27%;
   text-align: center;
-  font-size: 24px;
   font-weight: bold;
   height: auto;
 }
 
 .tabs dd > a, .tabs .tab-title > a {
   height: 115px;
+  font-size: 20px !important;
 }
 
 .one-line-tab > a {
   padding: 45px !important;
+}
+
+.stock-index-header {
+  height: 500px;
+  width: 80%;
+  margin: auto auto;
+  text-align: center;
+  background-color: #258790;
+  padding-top: 225px;
+  padding-bottom: 225px !important;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 7px 6px 0px #103b3f;
 }

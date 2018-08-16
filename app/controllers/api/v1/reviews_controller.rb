@@ -6,7 +6,7 @@ class Api::V1::ReviewsController < ApiController
     review.user = current_user
 
     if review.save
-      render json: { review: review }
+      render json: { review: ReviewSerializer.new(review) }
     else
       render json: { errors: review.errors }
     end
@@ -30,5 +30,14 @@ class Api::V1::ReviewsController < ApiController
 
   def admin_status? (review)
     current_user.admin? || current_user.id == review.user_id
+  end
+
+  def review_params
+    params
+      .require(:review)
+      .permit(
+        :body,
+        :stock_id
+      )
   end
 end

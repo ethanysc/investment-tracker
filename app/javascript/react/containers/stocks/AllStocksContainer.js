@@ -118,7 +118,9 @@ class AllStocksContainer extends React.Component {
 
     return(
       <div className="stock-index wrapper">
-        <h1 className='stock-index header'>List of Stocks</h1>
+        <div className='stock-index-header'>
+          <h1 className='stock-index header'>Stock Investments</h1>
+        </div>
         <div className="row">
           <div className='columns small-10 small-centered' >
             <ul className="tabs small-centered sector-tabs" data-equalizer data-tab>
