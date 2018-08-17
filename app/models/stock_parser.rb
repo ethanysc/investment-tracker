@@ -63,4 +63,15 @@ class StockParser
     stock_news = response["news"]
     @stock_news = stock_news
   end
+
+  def range_get_batch
+    query_array = []
+    Stock.all.each do |stock|
+      query_array << stock.symbol
+    end
+    query_string = query_array.join(',')
+    query_string = "https://api.iextrading.com/1.0/stock/market/batch?symbols=#{query_string}&types=quote"
+    response = HTTParty.get(query_string)
+    response
+  end
 end

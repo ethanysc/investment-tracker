@@ -1,0 +1,9 @@
+Dear <%= @user.username %>,
+
+Thank you for investing with InvestmentTracker. This e-mail is to notify you that your investment below has fallen below your set range of expectation.
+
+<%= @stock["symbol"] %> is currently priced at $<%= @stock["latestPrice"] %>, which is below your set range of $<%= @stock_ownership.low_range %> to $<%= @stock_ownership.high_range %>. Please sell or update your shares as soon as possible.
+
+Sincerely,
+
+Staff at InvestmentTracker

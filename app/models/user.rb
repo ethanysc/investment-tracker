@@ -66,4 +66,17 @@ class User < ApplicationRecord
     end
     puts "Finish checking user balance"
   end
+
+
+  def range_check(batch)
+    self.stock_ownerships.each do |record|
+      if batch[record.stock.symbol]["quote"]["latestPrice"] < record.low_range
+        InvestmentMailer.below_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
+        puts "Send e-mail notification due to #{record.stock.symbol} falling below set range"
+      elsif batch[record.stock.symbol]["quote"]["latestPrice"] > record.high_range
+        InvestmentMailer.above_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
+        puts "Send e-mail notification due to #{record.stock.symbol} risen above set range"
+      end
+    end
+  end
 end
