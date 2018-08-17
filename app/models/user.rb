@@ -48,8 +48,36 @@ class User < ApplicationRecord
     return count
   end
 
-  # def update_monthly_balance
-  #   today = Time.new
-  #   if today.day
-  # end
+  def check_balance
+    puts "Checking user #{self.username} (id: #{self.id}) balance now"
+
+    this_month = Time.now.month
+    month_comparison =  this_month - self.modified_at.month
+    if (month_comparison == 1 || month_comparison ==  -11)
+      puts "User last modified at #{self.modified_at}"
+      puts "Today's date is #{Time.now}, self's balance is #{self.balance}"
+      self.update(
+        balance: self.balance += self.monthly_contribution,
+        modified_at: Time.now
+      )
+      puts "User received monthly contribution of #{self.monthly_contribution}"
+      puts "User's total balance is now #{self.balance}"
+      puts ""
+    end
+    puts "Finish checking user balance"
+  end
+
+
+  def range_check(batch)
+    self.stock_ownerships.each do |record|
+      if batch[record.stock.symbol]["quote"]["latestPrice"] < record.low_range && !record.notified
+        InvestmentMailer.below_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
+        record.update(notified: true)
+        puts "Send e-mail notification due to #{record.stock.symbol} falling below set range"
+      elsif batch[record.stock.symbol]["quote"]["latestPrice"] > record.high_range
+        InvestmentMailer.above_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
+        puts "Send e-mail notification due to #{record.stock.symbol} risen above set range"
+      end
+    end
+  end
 end

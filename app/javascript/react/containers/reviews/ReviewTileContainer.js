@@ -27,7 +27,7 @@ class ReviewTileContainer extends React.Component{
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ adminStatus: body.admin_status })
+      this.setState({ adminStatus: body.adminStatus })
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -56,13 +56,12 @@ class ReviewTileContainer extends React.Component{
     if (this.state.adminStatus){
       deleteButton = <button onClick={this.props.handleDelete}>Delete</button>
     }
-
     return(
       <div className="row review-box panel callout">
         {reviewBody}<br/><br/>
         <strong>Date Reviewed: </strong>{formattedDate}<br/>
         <strong> By: </strong>{username}<br/>
-        <button onClick={this.props.handleDelete}>Delete</button>
+        {deleteButton}
       </div>
     )
   }

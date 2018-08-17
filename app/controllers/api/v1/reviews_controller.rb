@@ -14,7 +14,7 @@ class Api::V1::ReviewsController < ApiController
 
   def show
     review = Review.find(params[:id])
-    render json: { admin_status: admin_status?(review) }
+    render json: { adminStatus: admin_status?(review) }
   end
 
   def destroy
@@ -29,7 +29,11 @@ class Api::V1::ReviewsController < ApiController
   end
 
   def admin_status? (review)
-    current_user.admin? || current_user.id == review.user_id
+    if current_user.admin? || current_user.id == review.user_id
+      true
+    else
+      false
+    end
   end
 
   def review_params

@@ -48,6 +48,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'sendgrid-ruby'
 gem 'active_model_serializers'
 gem 'pry-rails', group: [:development, :test]
 gem 'jquery-rails'
