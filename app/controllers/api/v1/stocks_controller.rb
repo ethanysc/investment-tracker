@@ -6,32 +6,33 @@ class Api::V1::StocksController < ApiController
       chart_array = []
       query_symbols = []
 
-      current_user.stocks.each do |stock|
-        query_symbols << stock.symbol
-      end
-      query_string = query_symbols.join(',')
+      if current_user.stocks.length > 0
+        current_user.stocks.each do |stock|
+          query_symbols << stock.symbol
+        end
+        query_string = query_symbols.join(',')
 
-      stock_parser = StockParser.new
-      fetch_array = stock_parser.get_batch(query_string, current_user.stocks)
-      line_chart_array = stock_parser.get_chart(query_string, current_user.stocks)
+        stock_parser = StockParser.new
+        fetch_array = stock_parser.get_batch(query_string, current_user.stocks)
+        line_chart_array = stock_parser.get_chart(query_string, current_user.stocks)
 
-      current_user.stocks.each do |stock|
-        current_stock = current_user.search_stock(stock)
-        stock_array << {
-          id: stock.id,
-          balance: current_user.balance,
-          monthlyContribution: current_user.monthly_contribution,
-          price: current_stock.price,
-          share: current_stock.share,
-          highRange: current_stock.high_range,
-          lowRange: current_stock.low_range
-        }
+        current_user.stocks.each do |stock|
+          current_stock = current_user.search_stock(stock)
+          stock_array << {
+            id: stock.id,
+            balance: current_user.balance,
+            monthlyContribution: current_user.monthly_contribution,
+            price: current_stock.price,
+            share: current_stock.share,
+            highRange: current_stock.high_range,
+            lowRange: current_stock.low_range
+          }
+        end
+        pie_chart_array = [['Sector', 'Count']]
+        Sector.all.each do |sector|
+          pie_chart_array << [sector.sector, current_user.sector_count(sector)]
+        end
       end
-      pie_chart_array = [['Sector', 'Count']]
-      Sector.all.each do |sector|
-        pie_chart_array << [sector.sector, current_user.sector_count(sector)]
-      end
-
       render json: { stocks: fetch_array, userInfo: stock_array, pieChart: pie_chart_array, lineChart: line_chart_array }
     else
       render json: { errors: 'Please select an option below'}

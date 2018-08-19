@@ -61,7 +61,9 @@ class StocksIndexContainer extends React.Component {
 
   render(){
     let myStocks, userInfo = ''
-    if (this.state.stocks.length > 0) {
+    let firstTime = ''
+    
+    if (this.state.userInfo.length > 0) {
       userInfo = <div className='stocks-list row panel callout radius'>
         <div className='columns small-10 small-centered'>
           Current Balance: ${Math.round(this.state.userInfo[0].balance * 100) / 100} <br/>
@@ -84,10 +86,19 @@ class StocksIndexContainer extends React.Component {
           </div>
         </div><div className='row' data-equalizer>{stocks}</div>
       </div>
+    } else {
+      firstTime = <div className='first-time row panel callout radius'>
+        <div className='columns small-12'>
+          <h2 className='first-time-title'>Please proceed to add investments</h2>
+          <button className='stocks-btn radius'><a href='/stocks'>Stocks</a></button>
+          <button className='coins-btn radius'><a href='/stocks'>Cryptocurrencies</a></button>
+        </div>
+      </div>
     }
 
     let errors = ''
     if (this.state.errors.length > 0){
+      firstTime = ''
       errors = <div className='row'>
         <div className='log-in columns small-12 small-centered'>
           {this.state.errors[0]}<br />
@@ -98,7 +109,7 @@ class StocksIndexContainer extends React.Component {
     }
 
     let pieChart = ''
-    if (this.state.pieData.length > 0){
+    if (this.state.pieData[0]){
       pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
         <div className='pie-title'>
           My Investment Diversification
@@ -108,7 +119,7 @@ class StocksIndexContainer extends React.Component {
     }
 
     let lineChart = ''
-    if (this.state.lineData.length > 0){
+    if (this.state.lineData[0]){
       lineChart = <div className='line-chart large-8 columns panel callout radius'>
         <div className='pie-title'>
           Investment Trends
@@ -116,6 +127,7 @@ class StocksIndexContainer extends React.Component {
       <LineChart data={this.state.lineData} />
       </div>
     }
+
     return(
       <div className='portfolio-index-wrapper'>
         <div className='row'>
@@ -129,6 +141,7 @@ class StocksIndexContainer extends React.Component {
             {pieChart}
             {lineChart}
           </div>
+          {firstTime}
           {userInfo}
           {myStocks}
           {errors}

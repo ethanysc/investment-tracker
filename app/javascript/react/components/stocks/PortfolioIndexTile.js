@@ -23,7 +23,7 @@ class PortfolioIndexTile extends React.Component {
 
   render(){
     let stock, userInfo = ''
-    if (this.state.stock){
+    if (this.state.userInfo){
       stock = this.state.stock
       userInfo = this.state.userInfo
     }

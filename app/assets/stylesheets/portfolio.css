@@ -87,19 +87,17 @@ h2 {
   margin-bottom: 25px;
 }
 
-.log-in-btn {
+.log-in-btn, .stocks-btn {
   background-color: #0d3048;
-  color: #F3F5F6;
   margin-top: 25px;
   margin-right: 25px;
-  width: 150px;
+  width: 200px;
 }
 
-.sign-up-btn {
+.sign-up-btn, .coins-btn {
   background-color: #0d3048;
-  color: #F3F5F6;
   margin-top: 25px;
-  width: 150px;
+  width: 200px;
 }
 
 .stocks-list {
@@ -126,4 +124,18 @@ h2 {
   font-size: 30px;
   padding-top: 39px;
   padding-bottom: 0px;
+}
+
+.first-time {
+  height: 300px;
+  width: 100%;
+  text-align: center;
+  padding-top: 125px;
+  padding-bottom: 125px;
+  margin-bottom: 10px;
+  box-shadow: 7px 6px 0px #adadad;
+}
+
+.first-time-title {
+  padding-top: 75px;
 }
