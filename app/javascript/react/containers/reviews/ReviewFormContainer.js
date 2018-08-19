@@ -45,7 +45,7 @@ class ReviewFormContainer extends React.Component {
     }
 
     return(
-      <form className="panel callout" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <h1 className="form-header">New Review</h1>
         {errorDiv}
         <label htmlFor='body'>Comments:</label>

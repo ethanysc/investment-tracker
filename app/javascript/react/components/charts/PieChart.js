@@ -44,7 +44,7 @@ class PieChart extends React.Component{
           data={this.props.data}
           options={pieOptions}
           graph_id='PieChart'
-          width="600px"
+          width="100%"
           height="500px"
           legend_toggle
         />

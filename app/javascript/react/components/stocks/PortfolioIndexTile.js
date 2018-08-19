@@ -6,9 +6,12 @@ class PortfolioIndexTile extends React.Component {
     super(props)
     this.state = {
       stock: this.props.stock,
-      userInfo: this.props.userInfo,
-      hover: false
+      userInfo: this.props.userInfo
     }
+  }
+
+  componentDidUpdate(){
+    $(document).foundation('equalizer', 'reflow');
   }
 
   render(){
@@ -29,17 +32,15 @@ class PortfolioIndexTile extends React.Component {
     }
 
     return(
-      <div>
-        <Link to={`/stocks/${userInfo.id}`} className='portfolio-index-tile small-6 medium-4 large-3 columns end panel callout radius'>
-          <div data-equalizer-watch>
-            <div>{stock.companyName}</div>
-            <div>{stock.symbol}</div>
-            <div>{stock.sector}</div>
-            <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
-            <div>Shares: {userInfo.share}</div>
-          </div>
-        </Link>
-      </div>
+      <Link to={`/stocks/${userInfo.id}`} className='portfolio-index-tile small-6 medium-4 large-3 columns end panel callout radius' >
+        <div data-equalizer-watch>
+          <div>{stock.symbol}</div>
+          <div>{stock.companyName}</div>
+          <div>{stock.sector}</div>
+          <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
+          <div>Shares: {userInfo.share}</div>
+        </div>
+      </Link>
 
     )
   }

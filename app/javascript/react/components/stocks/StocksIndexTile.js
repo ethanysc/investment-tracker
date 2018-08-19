@@ -10,22 +10,31 @@ const StocksIndexTile = props => {
     errorMsg = <div>{props.errors[0]}</div>
   }
 
-  let companyName = stock.companyName
-    if (companyName.length > 30){
-      companyName = companyName.slice(0, 30) + '...'
+  let statsColor = (stats) => {
+    if (stats > 0){
+      return 'green'
     }
+    else if (stats < 0){
+      return 'red'
+    }
+  }
+
+  let companyName = stock.companyName
+  if (companyName.length > 30){
+    companyName = companyName.slice(0, 30) + '...'
+  }
 
   return(
-    <div className='stock-index-tile large-3 columns panel callout radius' data-equalizer >
+    <div className='stock-index-tile small-6 medium-4 large-3 columns end panel callout radius' data-equalizer >
       <div className='stock-index-symbol'>{stock.symbol}</div>
       <div>{companyName}</div>
       <div>{stock.sector}</div>
       <div>High: ${parseFloat(stock.high).toFixed(2)}</div>
       <div>Low: ${parseFloat(stock.low).toFixed(2)}</div>
-      <div>Price: ${parseFloat(stock.latestPrice).toFixed(2)}</div>
+      <div><span className={statsColor(stock.latestPrice)}>Price: ${parseFloat(stock.latestPrice).toFixed(2)}</span></div>
       <div>Volume: {stock.latestVolume}</div>
-      <div>Change: ${parseFloat(stock.change).toFixed(2)}</div>
-      <div>Change %: {stock.changePercent.toPrecision(2)}%</div>
+      <div><span className={statsColor(stock.change)}>Change: ${parseFloat(stock.change).toFixed(2)}</span></div>
+      <div><span className={statsColor(stock.changePercent)}>Change %: {stock.changePercent.toPrecision(2)}%</span></div>
       <NewStockFormContainer
         stock={stock}
         handleClick={props.handleClick}

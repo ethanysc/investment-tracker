@@ -5,7 +5,7 @@ import '!style-loader!css-loader!rc-slider/assets/index.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
-const wrapperStyle = { width: 300, margin: 20 }
+const wrapperStyle = { width: "70%" }
 
 class NewStockFormContainer extends React.Component{
   constructor(props){
@@ -66,7 +66,7 @@ class NewStockFormContainer extends React.Component{
                     name='range'
                     />
               </div>
-        <button type='submit' className='button radius'>Add to List</button>
+        <button type='submit' className='new-button button radius'>Add to List</button>
       </form>
     )
   }

@@ -46,6 +46,11 @@ class StocksIndexContainer extends React.Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  componentDidUpdate(){
+    $(document).foundation('equalizer', 'reflow');
+  }
+
+
   timeOfDay(){
     let currentTime = new Date().getHours()
     if (currentTime < 12){
@@ -62,7 +67,7 @@ class StocksIndexContainer extends React.Component {
   render(){
     let myStocks, userInfo = ''
     let firstTime = ''
-    
+
     if (this.state.userInfo.length > 0) {
       userInfo = <div className='stocks-list row panel callout radius'>
         <div className='columns small-10 small-centered'>
@@ -110,7 +115,7 @@ class StocksIndexContainer extends React.Component {
 
     let pieChart = ''
     if (this.state.pieData[0]){
-      pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
+      pieChart = <div className='distribution-chart small-4 columns panel callout radius'>
         <div className='pie-title'>
           My Investment Diversification
         </div>
@@ -120,7 +125,7 @@ class StocksIndexContainer extends React.Component {
 
     let lineChart = ''
     if (this.state.lineData[0]){
-      lineChart = <div className='line-chart large-8 columns panel callout radius'>
+      lineChart = <div className='trend-chart small-8 columns panel callout radius'>
         <div className='pie-title'>
           Investment Trends
         </div>
