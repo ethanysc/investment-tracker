@@ -107,9 +107,17 @@ class Api::V1::StocksController < ApiController
   end
 
   def update
-    stock_record = StockOwnership.where(user: current_user, stock: Stock.where(symbol: params["stock"]["symbol"]))
+    stock_record = StockOwnership.where(user: current_user, stock: Stock.where(symbol: params["stock"]["symbol"])).first
     stock_record.update(high_range: params[:range].last, low_range: params[:range].first, notified: false)
-    render json: { id: stock_record.stock_id }
+    render json: {
+      stockRecord: {
+        id: stock_record.stock_id,
+        price: stock_record.price,
+        share: stock_record.share,
+        highRange: stock_record.high_range,
+        lowRange: stock_record.low_range
+      }
+    }
   end
 
   def destroy

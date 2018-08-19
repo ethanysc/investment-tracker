@@ -10,13 +10,13 @@ const pieOptions = {
     alignment: "center",
     textStyle: {
       color: "233238",
-      fontSize: 20
+      fontSize: 16
     }
   },
   tooltip: {
     showColorCode: true,
     textStyle:{
-      fontSize: 18
+      fontSize: 16
     }
   },
   chartArea: {
@@ -26,7 +26,7 @@ const pieOptions = {
     height: "100%"
   },
   pieSliceTextStyle: {
-    fontSize: 20
+    fontSize: 14
   },
   fontName: "Roboto"
 };
@@ -44,7 +44,7 @@ class PieChart extends React.Component{
           data={this.props.data}
           options={pieOptions}
           graph_id='PieChart'
-          width="600px"
+          width="100%"
           height="500px"
           legend_toggle
         />

@@ -18,6 +18,10 @@ class StocksIndexContainer extends React.Component {
     this.timeOfDay = this.timeOfDay.bind(this)
   }
 
+  componentDidUpdate(){
+    $(document).foundation('equalizer', 'reflow');
+  }
+
   componentDidMount(){
     fetch('/api/v1/stocks.json', {credentials: 'same-origin'})
     .then(response => {
@@ -99,7 +103,7 @@ class StocksIndexContainer extends React.Component {
 
     let pieChart = ''
     if (this.state.pieData.length > 0){
-      pieChart = <div className='distribution-chart large-4 columns panel callout radius'>
+      pieChart = <div className='distribution-chart small-4 columns panel callout radius'>
         <div className='pie-title'>
           My Investment Diversification
         </div>
@@ -109,7 +113,7 @@ class StocksIndexContainer extends React.Component {
 
     let lineChart = ''
     if (this.state.lineData.length > 0){
-      lineChart = <div className='line-chart large-8 columns panel callout radius'>
+      lineChart = <div className='trend-chart small-8 columns panel callout radius'>
         <div className='pie-title'>
           Investment Trends
         </div>

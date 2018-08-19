@@ -11,7 +11,7 @@ const options = {
   vAxis: { title: 'Dollar' },
   backgroundColor: "transparent",
   explorer: {
-        maxZoomOut:2,
+        maxZoomOut: 2,
         keepInBounds: true
     }
 }
@@ -19,13 +19,15 @@ const options = {
 class LineChart extends React.Component {
   render() {
     return (
-      <Chart
-        chartType="LineChart"
-        width="100%"
-        height="500px"
-        data={this.props.data}
-        options={options}
-      />
+      <div className="line-chart">
+        <Chart
+          chartType="LineChart"
+          width="100%"
+          height="480px"
+          data={this.props.data}
+          options={options}
+        />
+      </div>
     );
   }
 }

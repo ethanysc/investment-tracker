@@ -1,5 +1,22 @@
-.stock-title, .show-chart {
+.stock-title-box, .show-chart {
   box-shadow: 7px 6px 0px #adadad;
+}
+
+.stock-title {
+  color: #F3F5F6 !important;
+  height: 200px;
+  width: 100%;
+  text-align: center;
+  background-color: #258790 !important;
+  padding-top: 75px !important;
+  padding-bottom: 75px !important;
+  margin-bottom: 10px !important;
+  border-color: #258790 !important;
+  box-shadow: 7px 6px 0px #103b3f;
+}
+
+.stock-title h1 {
+  color: #F3F5F6 !important;
 }
 
 .stock-show-panel, .investment-show-panel {
@@ -14,7 +31,15 @@
 }
 
 .edit-slider {
-  margin-left: 305px;
+  position: absolute;
+  margin-left: 22% !important;
+  margin-top: 3% !important;
+}
+
+.edit-rc-slider {
+  position: relative;
+  margin: auto auto !important;
+  text-align: center !important;
 }
 
 .edit-button {
@@ -24,4 +49,17 @@
 .news-panel, .review-panel {
   text-align: center;
   box-shadow: 7px 6px 0px #adadad;
+}
+
+.edit-button-set {
+  /* margin-top: 7.5%; */
+  padding-top: 7.5%;
+}
+
+.red {
+  color: #EE4447;
+}
+
+.green {
+  color: #1E7C86;
 }
