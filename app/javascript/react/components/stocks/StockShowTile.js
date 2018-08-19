@@ -124,7 +124,6 @@ const StockShowTile = (props) => {
           />
         </div>
       </div>
-
     </div>
   )
 }

@@ -49,7 +49,9 @@ class ReviewFormContainer extends React.Component {
         <h1 className="form-header">New Review</h1>
         {errorDiv}
         <label htmlFor='body'>Comments:</label>
-        <textarea type="text" name='body' value={this.state.body} onChange={this.handleChange}/>
+        <div className='review-textarea'>
+          <textarea type="text" name='body' value={this.state.body} onChange={this.handleChange}/>
+        </div>
         <button type="submit" className="button" value="Submit">Add Review</button>
       </form>
     )
