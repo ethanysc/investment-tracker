@@ -11,6 +11,10 @@ h1, h2 {
   font-family: "IBM Plex Serif";
 }
 
+.panel.callout a:not(.button) {
+    color: white !important;
+}
+
 .top-bar {
   height: 50px;
 }

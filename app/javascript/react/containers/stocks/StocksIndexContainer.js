@@ -107,8 +107,8 @@ class StocksIndexContainer extends React.Component {
       errors = <div className='row'>
         <div className='log-in columns small-12 small-centered'>
           {this.state.errors[0]}<br />
-        <button className='log-in-btn radius'><a href='/users/sign_in'>Log In</a></button>
-        <button className='sign-up-btn radius'><a href='/users/sign_up'>Sign Up</a></button>
+        <a href='/users/sign_in'><button className='log-in-btn radius'>Log In</button></a>
+        <a href='/users/sign_up'><button className='sign-up-btn radius'>Sign Up</button></a>
         </div>
       </div>
     }
