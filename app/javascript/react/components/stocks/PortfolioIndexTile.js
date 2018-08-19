@@ -6,12 +6,19 @@ class PortfolioIndexTile extends React.Component {
     super(props)
     this.state = {
       stock: this.props.stock,
-      userInfo: this.props.userInfo
+      userInfo: this.props.userInfo,
+      hover: false
     }
+    this.onHover = this.onHover.bind(this)
+    this.offHover = this.offHover.bind(this)
   }
 
-  componentDidUpdate(){
-    $(document).foundation('equalizer', 'reflow');
+  onHover(){
+    this.setState({ hover: true })
+  }
+
+  offHover(){
+    this.setState({ hover: false })
   }
 
   render(){
@@ -31,16 +38,24 @@ class PortfolioIndexTile extends React.Component {
       trendIcon = ''
     }
 
+    let divClass = 'portfolio-index-tile large-3 columns panel callout radius'
+    if (this.state.hover){
+      divClass = 'hover-index-tile large-3 columns panel callout radius'
+    }
+
     return(
-      <Link to={`/stocks/${userInfo.id}`} className='portfolio-index-tile small-6 medium-4 large-3 columns end panel callout radius' >
-        <div data-equalizer-watch>
-          <div>{stock.symbol}</div>
-          <div>{stock.companyName}</div>
-          <div>{stock.sector}</div>
-          <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
-          <div>Shares: {userInfo.share}</div>
-        </div>
-      </Link>
+      <div>
+        <Link to={`/stocks/${userInfo.id}`}>
+          <div className={divClass} onMouseOver={ this.onHover } onMouseOut={ this.offHover } data-equalizer-watch>
+            <div>{stock.companyName}</div>
+            <div>{stock.symbol}</div>
+            <div>{stock.sector}</div>
+            <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
+            <div>Shares: {userInfo.share}</div>
+          </div>
+        </Link>
+      </div>
+
     )
   }
 }

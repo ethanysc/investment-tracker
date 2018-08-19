@@ -123,17 +123,15 @@ class AllStocksContainer extends React.Component {
         </div>
         <div className="row">
           <div className='columns small-10 small-centered' >
-            <div className='sector-tabs'>
-              <ul className="tabs small-centered" data-equalizer data-tab>
-                <li className="tab-title active one-line-tab" onClick={handleCategories} name='Financials' data-equalizer-watch><a href="#panel1">Financials</a></li>
-                <li className="tab-title one-line-tab" onClick={handleCategories} name='Technology' data-equalizer-watch><a href="#panel1">Technology</a></li>
-                <li className="tab-title one-line-tab" onClick={handleCategories} name='Health%20Care' data-equalizer-watch><a href="#panel1">Healthcare</a></li>
-                <li className="tab-title" onClick={handleCategories} name='Communication%20Services' data-equalizer-watch><a href="#panel1">Communication Services</a></li>
-                <li className="tab-title" onClick={handleCategories} name='Consumer%20Discretionary' data-equalizer-watch><a href="#panel1">Consumer Discretionary</a></li>
-                <li className="tab-title" onClick={handleCategories} name='Consumer%20Staples' data-equalizer-watch><a href="#panel1">Consumer Staples</a></li>
-                <li className="tab-title one-line-tab" onClick={handleCategories} name='Energy' data-equalizer-watch><a href="#panel1">Energy</a></li>
-              </ul>
-            </div>
+            <ul className="tabs small-centered sector-tabs" data-equalizer data-tab>
+              <li className="tab-title active one-line-tab" onClick={handleCategories} name='Financials' data-equalizer-watch><a href="#panel1">Financials</a></li>
+              <li className="tab-title one-line-tab" onClick={handleCategories} name='Technology' data-equalizer-watch><a href="#panel1">Technology</a></li>
+              <li className="tab-title one-line-tab" onClick={handleCategories} name='Health%20Care' data-equalizer-watch><a href="#panel1">Healthcare</a></li>
+              <li className="tab-title" onClick={handleCategories} name='Communication%20Services' data-equalizer-watch><a href="#panel1">Communication Services</a></li>
+              <li className="tab-title" onClick={handleCategories} name='Consumer%20Discretionary' data-equalizer-watch><a href="#panel1">Consumer Discretionary</a></li>
+              <li className="tab-title one-line-tab" onClick={handleCategories} name='Consumer%20Staples' data-equalizer-watch><a href="#panel1">Consumer Staples</a></li>
+              <li className="tab-title one-line-tab" onClick={handleCategories} name='Energy' data-equalizer-watch><a href="#panel1">Energy</a></li>
+            </ul>
             <div className="tabs-content small-centered">
               <div className="content active" id="panel1">
                 <div className='row' data-equalizer>

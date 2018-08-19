@@ -1,5 +1,4 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
 
 import StockShowTile from '../../components/stocks/StockShowTile'
 
@@ -11,12 +10,10 @@ class StockShowContainer extends React.Component {
       userInfo: null,
       stats: null,
       lineData: [],
-      reviews: [],
-      stockOwnership: null
+      reviews: []
     }
     this.addReview = this.addReview.bind(this)
     this.deleteReview = this.deleteReview.bind(this)
-    this.editRange = this.editRange.bind(this)
   }
 
   componentDidMount(){
@@ -98,31 +95,6 @@ class StockShowContainer extends React.Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  editRange = (payload) => {
-    fetch(`/api/v1/stocks/${this.state.userInfo.id}.json`, {
-     credentials: 'same-origin',
-     headers: { 'Content-Type': 'application/json',
-      'X-Requested-With': 'XHMLttpRequest' },
-     method: 'PATCH',
-     body: JSON.stringify(payload)
-   })
-     .then(response => {
-       if(response.ok){
-         return response
-       } else {
-         let errorMessage = `${response.status} (${response.statusText})`,
-             error = new Error(errorMessage)
-         throw(error)
-       }
-     })
-     .then(response => response.json())
-     // .then(body => browserHistory.push(`/stocks/${body.stockOwnership.stock_id}`))
-     .then(body => {
-       this.setState({ userInfo: body.stockRecord })
-     })
-     .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }
-
   render(){
     let stock = ''
     if (this.state.stock){
@@ -133,7 +105,6 @@ class StockShowContainer extends React.Component {
                 stats={this.state.stats}
                 data={this.state.lineData}
                 reviews={this.state.reviews}
-                handleEdit={this.editRange}
                 addReview={this.addReview}
                 deleteReview={this.deleteReview}
               />

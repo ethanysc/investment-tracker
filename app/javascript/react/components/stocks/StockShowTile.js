@@ -24,6 +24,28 @@ const StockShowTile = (props) => {
     })
   }
 
+  let handleEdit = (payload) => {
+    fetch(`/api/v1/stocks/${props.id}.json`, {
+     credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json',
+      'X-Requested-With': 'XHMLttpRequest' },
+     method: 'PATCH',
+     body: JSON.stringify(payload)
+   })
+     .then(response => {
+       if(response.ok){
+         return response
+       } else {
+         let errorMessage = `${response.status} (${response.statusText})`,
+             error = new Error(errorMessage)
+         throw(error)
+       }
+     })
+     .then(response => response.json())
+     .then(body => browserHistory.push(`/stocks/${body.id}`))
+     .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }
+
   let handleDelete = (payload) => {
     fetch(`/api/v1/stocks/${props.id}.json`, {
       credentials: 'same-origin',
@@ -60,20 +82,11 @@ const StockShowTile = (props) => {
     )
   })
 
-  let statsColor = (stats) => {
-    if (stats > 0){
-      return 'green'
-    }
-    else if (stats < 0){
-      return 'red'
-    }
-  }
-
   return(
     <div>
-      <div className='stock-title panel callout radius row colums small-12'>
-        <h1>{stock.symbol}</h1>
-      </div>
+      <h1 className='stock-title panel callout radius row colums small-12'>
+        {stock.symbol}
+      </h1>
       <div className='row'>
         <div className='show-chart panel callout radius columns small-12'>
           <LineChart data={props.data}/>
@@ -91,21 +104,21 @@ const StockShowTile = (props) => {
           <div>Low: ${parseFloat(stock.low).toFixed(2)}</div>
           <div>Latest Price: ${parseFloat(stock.price).toFixed(2)}</div>
           <div>Latest Volume: {stock.volume}</div>
-          <div>Change: <span className={statsColor(stock.change)}>${parseFloat(stock.change).toFixed(2)}</span></div>
-          <div>Change%: <span className={statsColor(stock.changePercent)}>{Math.round(stock.changePercent * 100) / 100}%</span></div>
+          <div>Change: ${parseFloat(stock.change).toFixed(2)}</div>
+          <div>Change %: {Math.round(stock.changePercent * 100) / 100}%</div>
         </div>
         <div className='investment-show-panel panel callout radius columns small-6'>
           <h1>Investment Info</h1>
           <div>Bought Price: ${parseFloat(userInfo.price).toFixed(2)}</div>
           <div>Shares: {userInfo.share}</div>
-          <div>Set High Range: <span className='green'>${parseFloat(userInfo.highRange).toFixed(2)}</span></div>
-          <div>Set Low Range: <span className='red'>${parseFloat(userInfo.lowRange).toFixed(2)}</span></div>
-          <div>Return: <span className={statsColor(props.stats.profit)}>${Math.round(props.stats.profit * 100) / 100}</span></div>
-          <div>Return %: <span className={statsColor(props.stats.profitPercent)}>{Math.round(props.stats.profitPercent * 100) / 100}%</span></div>
+          <div>Set High Range: ${parseFloat(userInfo.highRange).toFixed(2)}</div>
+          <div>Set Low Range: ${parseFloat(userInfo.lowRange).toFixed(2)}</div>
+          <div>Return: ${Math.round(props.stats.profit * 100) / 100}</div>
+          <div>Return %: {Math.round(props.stats.profitPercent * 100) / 100}%</div>
           <EditStockFormContainer
             stock={stock}
             userInfo={userInfo}
-            handleEdit={props.handleEdit}
+            handleEdit={handleEdit}
             handleDelete={handleDelete}
           />
         </div>

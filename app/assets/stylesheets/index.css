@@ -1,14 +1,12 @@
 .stock-index-tile {
   height: 600px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   box-shadow: 7px 6px 0px #adadad;
 }
 
 .stock-index-symbol{
   font-size: 24px;
-  margin-bottom: 10px;
-  margin-top: 5px;
 }
 
 .new-stock-label {
@@ -24,34 +22,17 @@
 }
 
 .share-input {
-  margin: 0 auto;
-  width: 45%;
+  margin: 0 auto
 }
 
-.tabs {
+.tabs{
   box-shadow: 7px 6px 0px #adadad;
   border-radius: 5px;
   width: 101%;
 }
 
-/* .add-slider {
-  margin: 20px auto !important;
-} */
-
 .add-slider {
-  position: absolute;
-  margin: 5% 11%;
-}
-
-.rc-slider {
-  position: relative;
-  margin: auto auto !important;
-  text-align: center !important;
-}
-
-.rc-slider-rail {
-  margin: auto auto !important;
-  text-align: center !important;
+  margin: 20px auto !important;
 }
 
 .tab-title {
@@ -71,7 +52,7 @@
 }
 
 .stock-index-header {
-  height: 400px;
+  height: 500px;
   width: 80%;
   margin: auto auto;
   text-align: center;
@@ -81,17 +62,4 @@
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 7px 6px 0px #103b3f;
-}
-
-.sector-tabs {
-  margin-left: -20px;
-}
-
-.new-button {
-  position: relative;
-  margin-top: 16%;
-}
-
-.new-stock-form {
-  font-size: 18px
 }
