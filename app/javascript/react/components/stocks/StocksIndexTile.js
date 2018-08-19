@@ -19,10 +19,15 @@ const StocksIndexTile = props => {
     }
   }
 
+  let companyName = stock.companyName
+  if (companyName.length > 30){
+    companyName = companyName.slice(0, 30) + '...'
+  }
+
   return(
     <div className='stock-index-tile small-6 medium-4 large-3 columns end panel callout radius' data-equalizer >
       <div className='stock-index-symbol'>{stock.symbol}</div>
-      <div>{stock.companyName}</div>
+      <div>{companyName}</div>
       <div>{stock.sector}</div>
       <div>High: ${parseFloat(stock.high).toFixed(2)}</div>
       <div>Low: ${parseFloat(stock.low).toFixed(2)}</div>

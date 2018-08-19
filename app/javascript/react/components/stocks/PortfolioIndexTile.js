@@ -6,23 +6,12 @@ class PortfolioIndexTile extends React.Component {
     super(props)
     this.state = {
       stock: this.props.stock,
-      userInfo: this.props.userInfo,
-      hover: false
+      userInfo: this.props.userInfo
     }
-    this.onHover = this.onHover.bind(this)
-    this.offHover = this.offHover.bind(this)
   }
 
   componentDidUpdate(){
     $(document).foundation('equalizer', 'reflow');
-  }
-
-  onHover(){
-    this.setState({ hover: true })
-  }
-
-  offHover(){
-    this.setState({ hover: false })
   }
 
   render(){
