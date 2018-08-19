@@ -70,17 +70,6 @@ div {
   box-shadow: 7px 6px 0px #103b3f;
 }
 
-.hover-index-tile {
-  text-align: center;
-  font-size: 24px;
-  margin: auto auto !important;
-  background-color: #07273A !important;
-  color: #F3F5F6 !important;
-  border-width: thin !important;
-  border-color: #E6D752 !important;
-  min-height: 260px;
-}
-
 .log-in{
   height: 400px;
   width: 100%;
@@ -121,7 +110,10 @@ div {
 }
 
 .portfolio-index-tile:hover {
-
+  background-color: #07273A !important;
+  color: #F3F5F6 !important;
+  border-width: thin !important;
+  border-color: #E6D752 !important;
 }
 
 /* .portfolio-index-tile span, .hover-index-tile span {

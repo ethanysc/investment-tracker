@@ -42,14 +42,9 @@ class PortfolioIndexTile extends React.Component {
       trendIcon = ''
     }
 
-    let divClass = 'portfolio-index-tile small-6 medium-4 large-3 columns panel callout radius'
-    if (this.state.hover){
-      divClass = 'hover-index-tile small-6 medium-4 large-3 columns panel callout radius'
-    }
-
     return(
-      <Link to={`/stocks/${userInfo.id}`}>
-        <div className={divClass} onMouseOver={ this.onHover } onMouseOut={ this.offHover } data-equalizer-watch>
+      <Link to={`/stocks/${userInfo.id}`} className='portfolio-index-tile small-6 medium-4 large-3 columns end panel callout radius' >
+        <div data-equalizer-watch>
           <div>{stock.symbol}</div>
           <div>{stock.companyName}</div>
           <div>{stock.sector}</div>

@@ -20,7 +20,7 @@ const StocksIndexTile = props => {
   }
 
   return(
-    <div className='stock-index-tile small-6 medium-4 large-3 columns panel callout radius' data-equalizer >
+    <div className='stock-index-tile small-6 medium-4 large-3 columns end panel callout radius' data-equalizer >
       <div className='stock-index-symbol'>{stock.symbol}</div>
       <div>{stock.companyName}</div>
       <div>{stock.sector}</div>
