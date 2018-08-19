@@ -62,20 +62,6 @@ h2 {
   box-shadow: 7px 6px 0px #103b3f;
 }
 
-.field {
-  color: #F3F5F6, impor;
-}
-
-.hover-index-tile {
-  text-align: center;
-  font-size: 24px;
-  margin: auto auto !important;
-  background-color: #07273A !important;
-  color: #F3F5F6 !important;
-  border-width: thin !important;
-  border-color: #E6D752 !important;
-}
-
 .log-in{
   height: 400px;
   width: 100%;
@@ -107,9 +93,17 @@ h2 {
 }
 
 .portfolio-index-tile {
-  text-align: center;
-  font-size: 24px;
-  box-shadow: 7px 6px 0px #adadad;
+   text-align: center;
+   font-size: 24px;
+   box-shadow: 7px 6px 0px #adadad;
+   min-height: 260px;
+}
+
+ .portfolio-index-tile:hover {
+   background-color: #07273A !important;
+   color: #F3F5F6 !important;
+   border-width: thin !important;
+  border-color: #E6D752 !important;
 }
 
 .fa-arrow-alt-circle-up {
