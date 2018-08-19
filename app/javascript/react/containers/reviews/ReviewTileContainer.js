@@ -57,11 +57,17 @@ class ReviewTileContainer extends React.Component{
       deleteButton = <button onClick={this.props.handleDelete}>Delete</button>
     }
     return(
-      <div className="row review-box panel callout">
-        {reviewBody}<br/><br/>
-        <strong>Date Reviewed: </strong>{formattedDate}<br/>
-        <strong> By: </strong>{username}<br/>
-        {deleteButton}
+      <div className="review-box panel callout radius">
+        <div className='row'>
+          <div className='review-username columns small-6'>{username}</div>
+          <div className='review-date columns small-6'>{formattedDate}</div>
+        </div>
+        <div className='review-body row'>
+          {reviewBody}
+        </div>
+        <div className='review-button row'>
+          {deleteButton}
+        </div>
       </div>
     )
   }

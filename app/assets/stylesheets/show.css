@@ -25,3 +25,37 @@
   text-align: center;
   box-shadow: 7px 6px 0px #adadad;
 }
+
+.edit-button-set {
+  padding-top: 7.5%;
+}
+
+.red {
+  color: #EE4447;
+}
+
+.green {
+  color: #1E7C86;
+}
+
+.review-box {
+  margin: 5% 5% !important;
+}
+
+.review-username {
+  text-align: left;
+}
+
+.review-date {
+  text-align: right;
+}
+
+.review-button {
+  margin-top: 5% !important;
+  margin-bottom: 0px;
+}
+
+.review-textarea {
+  width: 75%;
+  margin: auto auto;
+}
