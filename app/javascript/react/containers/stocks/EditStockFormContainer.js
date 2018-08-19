@@ -5,7 +5,7 @@ import '!style-loader!css-loader!rc-slider/assets/index.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
-const wrapperStyle = { width: '50%'  }
+const wrapperStyle = { width: 300, margin: 20 }
 
 class EditStockFormContainer extends React.Component{
   constructor(props){
@@ -49,21 +49,19 @@ class EditStockFormContainer extends React.Component{
     return(
       <form className='edit-stock-form' onSubmit={this.handleEdit}>
           <div>Set your acceptable investment range:</div>
-          <div style={wrapperStyle} className='edit-slider'>
-            <Range min={Math.floor(stock.low - 10)}
-                  max={Math.floor(stock.high + 10)}
-                  defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
-                  allowCross={false}
-                  onChange={value => this.setState({ range: [value[0], value[1]] })}
-                  tipFormatter={value => `$${value}`}
-                  name='range'
-                  className='edit-rc-slider'
-            />
-          </div>
-          <div className='edit-button-set'>
-            <button type='submit' className='edit-button radius'>Edit Range</button>
-            <button className='delete-button radius' onClick={this.handleDelete}>Sell Shares</button>
-          </div>
+            <div style={wrapperStyle}>
+              <Range min={Math.floor(stock.low - 10)}
+                    max={Math.floor(stock.high + 10)}
+                    defaultValue={[Math.floor(stock.low - 1), Math.floor(stock.high + 1)]}
+                    allowCross={false}
+                    onChange={value => this.setState({ range: [value[0], value[1]] })}
+                    tipFormatter={value => `$${value}`}
+                    name='range'
+                    className='edit-slider'
+              />
+              </div>
+        <button type='submit' className='edit-button radius'>Edit Range</button>
+        <button className='delete-button radius' onClick={this.handleDelete}>Sell Shares</button>
       </form>
     )
   }
