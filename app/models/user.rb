@@ -74,7 +74,7 @@ class User < ApplicationRecord
         InvestmentMailer.below_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
         record.update(notified: true)
         puts "Send e-mail notification due to #{record.stock.symbol} falling below set range"
-      elsif batch[record.stock.symbol]["quote"]["latestPrice"] > record.high_range
+      elsif batch[record.stock.symbol]["quote"]["latestPrice"] > record.high_range && !record.notified
         InvestmentMailer.above_range(self, batch[record.stock.symbol]["quote"], record).deliver_now
         record.update(notified: true)
         puts "Send e-mail notification due to #{record.stock.symbol} risen above set range"
