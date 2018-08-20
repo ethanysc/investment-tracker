@@ -98,9 +98,14 @@ h1, h2 {
 
 .portfolio-index-tile {
    text-align: center;
-   font-size: 24px;
+   font-size: 22px;
    box-shadow: 7px 6px 0px #adadad;
    min-height: 260px;
+   font-family: "IBM Plex Serif";
+}
+
+.portfolio-tile-title{
+  font-size: 24px;
 }
 
  .portfolio-index-tile:hover {
