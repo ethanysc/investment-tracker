@@ -7,5 +7,4 @@ FactoryBot.define do
     balance '1000'
     monthly_contribution '50'
   end
-
 end

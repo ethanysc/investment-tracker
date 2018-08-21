@@ -31,11 +31,16 @@ class PortfolioIndexTile extends React.Component {
       trendIcon = ''
     }
 
+    let companyName = stock.companyName
+    if (companyName.length > 30){
+      companyName = companyName.slice(0, 30) + '...'
+    }
+
     return(
       <Link to={`/stocks/${userInfo.id}`} className='portfolio-index-tile small-6 medium-4 large-3 columns end panel callout radius' >
         <div data-equalizer-watch>
-          <div>{stock.symbol}</div>
-          <div>{stock.companyName}</div>
+          <div className='portfolio-tile-title'>{stock.symbol}</div>
+          <div>{companyName}</div>
           <div>{stock.sector}</div>
           <div>${parseFloat(stock.latestPrice).toFixed(2)}  |  {trendIcon} ${parseFloat(stock.change).toFixed(2)}</div>
           <div>Shares: {userInfo.share}</div>
