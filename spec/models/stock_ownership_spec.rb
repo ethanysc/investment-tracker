@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe StockOwnership, type: :model do
   describe "validation" do
-    let!(:user) {FactoryBot.create(:user)}
-    let!(:sector) {FactoryBot.create(:sector)}
-    let!(:stock) {FactoryBot.create(:stock)}
+    let!(:user) {FactoryBot.create(:user, id: 1)}
+    let!(:sector) {FactoryBot.create(:sector, id: 1)}
+    let!(:stock) {FactoryBot.create(:stock, id: 1)}
     let!(:stock_ownership) {FactoryBot.build(:stock_ownership)}
 
     it "is valid with all required fields specified" do
