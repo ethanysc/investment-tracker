@@ -83,7 +83,7 @@ class Api::V1::StocksController < ApiController
     elsif current_user.has_stock?(new_stock)
       render json: { errors: "Selected stock is already in your portfolio" }
     else
-      if !new_stock.exists_already?(new_stock)
+      if !new_stock.exists_already?
         new_stock.save
       else
         new_stock = Stock.where(symbol: params[:symbol]).first

@@ -7,9 +7,9 @@ class Stock < ApplicationRecord
   has_many :users, through: :stock_ownerships
   has_many :reviews
 
-  def exists_already? (stock_check)
+  def exists_already?
     Stock.all.each do |stock|
-      if stock.symbol == stock_check.symbol
+      if stock.symbol == self.symbol
         return true
       end
     end
